@@ -38,7 +38,7 @@ else{
         $dbpass = $row['pass1'];
         $pass = md5($pass);
         if($pass == $dbpass){
-            header('Location: ../../dashboard/html/dashboard.html');
+            header('Location: ../html/dashboard.html');
         }
         else{
             echo 'Incorrect password';
