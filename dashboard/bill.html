@@ -322,7 +322,7 @@
             </a>
             <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="bill.html">New bill</a></li>
+                <li class="nav-item"> <a class="nav-link" href="#">New bill</a></li>
                 <li class="nav-item"> <a class="nav-link" href="#">Bill list</a></li>
               </ul>
             </div>
@@ -333,25 +333,18 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Add user</h4>
-                  <form class="forms-sample" action="../login/php/adduser.php" method="POST">
-                    <div class="form-group">
-                      <label for="exampleInputUsername1">Name</label>
-                      <input type="text" class="form-control" name="name" id="name" placeholder="Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputUsername1">Place</label>
-                        <input type="text" class="form-control" name="place" id="place" placeholder="Place">
-                    </div>
-                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                    
-                  </form>
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">New bill</h4>
+                    <form class="form-inline">
+                      <label class="sr-only" for="inlineFormInputName2">Name</label>
+                      <input type="text" class="form-control mb-2 mr-sm-2" id="id" placeholder="ID">
+                      <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->

@@ -314,6 +314,19 @@
               </ul>
             </div>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+              <i class="icon-contract menu-icon"></i>
+              <span class="menu-title">Bills</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="icons">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="bill.html">New bill</a></li>
+                <li class="nav-item"> <a class="nav-link" href="#">Bill list</a></li>
+              </ul>
+            </div>
+          </li>
         </ul>
       </nav>
       <!-- partial -->
@@ -331,6 +344,7 @@
                     <table class="table table-hover">
                       <thead>
                         <tr>
+                          <th>ID</th>
                           <th>Name</th>
                           <th>Place</th>
                         </tr>
@@ -342,12 +356,12 @@
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT name,place FROM users";
+                        $sql = "SELECT id,name,place FROM users";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                         // output data of each row
                         while($row = $result->fetch_assoc()) {
-                            echo "<tr><td>" . $row["name"]. "</td><td>" . $row["place"] . "</td><td>";
+                            echo "<tr><td><label class='badge badge-info'>" . $row["id"]. "</label></td><td>" . $row["name"]. "</td><td>" . $row["place"] . "</td><td>";
                         }
                         } else { echo "0 results"; }
                         $conn->close();
