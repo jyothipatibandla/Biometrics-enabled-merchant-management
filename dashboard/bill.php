@@ -322,7 +322,7 @@
             </a>
             <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">New bill</a></li>
+                <li class="nav-item"> <a class="nav-link" href="bill.php">New bill</a></li>
                 <li class="nav-item"> <a class="nav-link" href="#">Bill list</a></li>
               </ul>
             </div>
@@ -332,20 +332,48 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">
-            <div class="col-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">New bill</h4>
-                    <form class="form-inline">
-                      <label class="sr-only" for="inlineFormInputName2">Name</label>
-                      <input type="text" class="form-control mb-2 mr-sm-2" id="id" placeholder="ID">
-                      <button type="submit" class="btn btn-primary mb-2">Submit</button>
+          <div class="row">            
+            <div class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                <form name="myform" action="billuser.php" method="POST">
+                  <h3 class="card-title">Bill generation</h3>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>ID</th>
+                          <th>Name</th>
+                          <th>Place</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <?php
+                        $conn = mysqli_connect("localhost", "root", "", "bio");
+                        // Check connection
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
+                        $sql = "SELECT id,name,place FROM users";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                        // output data of each row
+                        while($row = $result->fetch_assoc()) {
+                            $i = $row["id"];
+                            echo "<tr><label class='form-check-success'><td><input type='radio' class='form-check-success' name='bill' id='$i' value='$i'></td><td><label class='badge badge-info'>" . $row["id"]. "</label></td><td>" . $row["name"]. "</td><td>" . $row["place"] . "</td><td></label></tr>";
+                        }
+                        } else { echo "0 results"; }
+                        $conn->close();
+                      ?>
+                      </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-primary mr-2">Generate</button>
                     </form>
                   </div>
                 </div>
               </div>
-          </div>
+            </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- partial -->
