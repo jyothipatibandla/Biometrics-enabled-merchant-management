@@ -2,6 +2,7 @@ $(document).ready(function() {
 
     /* Set rates */
     var taxRate = 0.05;
+    var comRate = 0.01;
     var fadeTime = 300;
  
     /* Assign actions */
@@ -25,12 +26,14 @@ $(document).ready(function() {
  
       /* Calculate totals */
       var tax = subtotal * taxRate;
-      var total = subtotal + tax;
+      var comm = subtotal * comRate;
+      var total = subtotal + tax + comm;
  
       /* Update totals display */
       $('.totals-value').fadeOut(fadeTime, function() {
         $('#cart-subtotal').html(subtotal.toFixed(2));
         $('#cart-tax').html(tax.toFixed(2));
+        $('#cart-comm').html(comm.toFixed(2));
         $('.cart-total').html(total.toFixed(2));
         if (total == 0) {
           $('.checkout').fadeOut(fadeTime);

@@ -1,9 +1,12 @@
 <?php
 
+session_start();
+
 $bill = "";
 if(isset($_POST['bill'])){
     $id = $_POST['bill'];
-    header('Location: billpage.html');
+    $_SESSION['id'] = $id;
+    header('Location: billpage.php');
 }
 else{
     $m = "Select a user";

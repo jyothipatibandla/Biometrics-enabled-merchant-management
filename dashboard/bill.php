@@ -327,6 +327,19 @@
               </ul>
             </div>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#bills" aria-expanded="false" aria-controls="icons">
+              <i class="icon-bar-graph menu-icon"></i>
+              <span class="menu-title">Price</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="bills">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="price.php">Update Price</a></li>
+                <li class="nav-item"> <a class="nav-link" href="#">History</a></li>
+              </ul>
+            </div>
+          </li>
         </ul>
       </nav>
       <!-- partial -->
@@ -341,7 +354,7 @@
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <thead>
-                        <tr>
+                        <tr>  
                           <th></th>
                           <th>ID</th>
                           <th>Name</th>

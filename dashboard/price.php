@@ -17,7 +17,6 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
-  <link rel="stylesheet" href="css/payment.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
 </head>
@@ -328,84 +327,87 @@
               </ul>
             </div>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+              <i class="icon-bar-graph menu-icon"></i>
+              <span class="menu-title">Price</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="icons">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="price.php">Update Price</a></li>
+                <li class="nav-item"> <a class="nav-link" href="phistory.php">History</a></li>
+              </ul>
+            </div>
+          </li>
         </ul>
       </nav>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-            <div class="col-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">Bill Genrate</h4>
-                    <div class="container mt-5 mb-5">
-                      <div class="row justify-content-center">
-                        <div class="col-xl-7 col-lg-8 col-md-7">
-                          <div class="border border-gainsboro p-3">
-                    
-                            <h2 class="h6 text-uppercase mb-0">Cart Total (2 Items): <strong class="cart-total">00.00</strong></h2>
-                          </div>
-                    
-                          <div class="border border-gainsboro p-3 mt-3 clearfix item">
-                            <div class="text-lg-left">
-                              <i class="fa fa-ticket fa-2x text-center" aria-hidden="true"></i>
-                            </div>
-                            <div class="col-lg-5 col-5 text-lg-left">
-                              <h3 class="h6 mb-0">Banana<br>
-                                <small>Cost: $50.00/ea</small>
-                              </h3>
-                            </div>
-                            <div class="product-price d-flex">50.00</div>
-                            <div class="pass-quantity col-lg-3 col-md-4 col-sm-3">
-                              <label for="pass-quantity" class="pass-quantity">Quantity</label>
-                              <input class="form-control" type="number" value="0" min="0" max="10">
-                            </div>
-                            <div class="col-lg-2 col-md-1 col-sm-2 product-line-price pt-4">
-                              <span class="product-line-price">00.00
-                              </span>
-                            </div>
-                          </div>
-                    
-                      <div class="border border-gainsboro p-3 mt-3 clearfix item">
-                        <div class="text-lg-left">
-                          <i class="fa fa-ticket fa-2x text-center" aria-hidden="true"></i>
-                        </div>
-                        <div class="col-lg-5 col-5 text-lg-left">
-                          <h3 class="h6 mb-0">Apple<br><small><small>Cost: $45.00/ea</small></small></h3>
-                        </div>
-                        <div class="product-price d-flex">45.00</div>
-                        <div class="pass-quantity col-lg-3 col-md-4 col-sm-3">
-                          <label for="pass-quantity" class="pass-quantity">Quantity</label>
-                          <input type="number" class="form-control" value="0" min="0" max="10">
-                        </div>
-                        <div class="col-lg-2 col-md-1 col-sm-2 product-line-price pt-4">
-                          <span class="product-line-price">00.00</span>
-                        </div>
-                    </div><!-- item -->
-                  </div>
-                    <div class="col-xl-3 col-lg-4 col-md-5 totals">
-                      <div class="border border-gainsboro px-3">
-                        <div class="border-bottom border-gainsboro">
-                          <p class="text-uppercase mb-0 py-3"><strong>Order Summary</strong></p>
-                        </div>
-                        <div class="totals-item d-flex align-items-center justify-content-between mt-3">
-                          <p class="text-uppercase">Subtotal</p>
-                          <p class="totals-value" id="cart-subtotal">00.00</p>
-                        </div>
-                        <div class="totals-item d-flex align-items-center justify-content-between">
-                          <p class="text-uppercase">Estimated Tax</p>
-                          <p class="totals-value" id="cart-tax">00.00</p>
-                        </div>
-                        <div class="totals-item totals-item-total d-flex align-items-center justify-content-between mt-3 pt-3 border-top border-gainsboro">
-                          <p class="text-uppercase"><strong>Total</strong></p>
-                          <p class="totals-value font-weight-bold cart-total">00.00</p>
-                        </div>
-                      </div>
-                      <a href="#" class="mt-3 btn btn-pay w-100 d-flex justify-content-between btn-lg rounded-0">Pay Now <span class="totals-value cart-total">00.00</span></a>
+            <div class="col-md-4 col-md-offset-3">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Price update</h4>
+                  <form class="forms-sample" action="../login/php/pupdate.php" method="POST">
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">Product 1</label>
+                      <input type="text" class="form-control" name="i1" id="i1" placeholder="Price">
                     </div>
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">Product 2</label>
+                      <input type="text" class="form-control" name="i2" id="i2" placeholder="Price">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">Product 3</label>
+                      <input type="text" class="form-control" name="i3" id="i3" placeholder="Price">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">Product 4</label>
+                      <input type="text" class="form-control" name="i4" id="i4" placeholder="Price">
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          
+          <div class="col-md-5 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Current Price</h4>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr class="table-info">
+                          <th>Product</th>
+                          <th>Price</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <?php
+                        $conn = mysqli_connect("localhost", "root", "", "bio");
+                        // Check connection
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
+                        $sql = "SELECT * FROM price ORDER BY pid DESC LIMIT 1";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                        // output data of each row
+                        while($row = $result->fetch_assoc()) {
+                            echo "<tr><td class='table-warning'>" . "P1" . "</td><td>" . $row["i1"]. "</td></tr><tr><td class='table-warning'>" . "P2" . "</td><td>" . $row["i2"]. "</td></tr><tr><td class='table-warning'>". "P3" . "</td><td>" . $row["i3"]. "</td></tr><tr><td class='table-warning'>". "P4" . "</td><td>" . $row["i4"]. "</td></tr>";
+                        }   
+                        } else { echo "0 results"; }
+                        $conn->close();
+                    ?>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
+            </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- partial -->
@@ -428,7 +430,6 @@
   <script src="js/template.js"></script>
   <script src="js/settings.js"></script>
   <script src="js/todolist.js"></script>
-  <script src="js/payment.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="js/file-upload.js"></script>
