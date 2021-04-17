@@ -24,7 +24,7 @@
     $row = $result->fetch_assoc();
     $bno = $row["bno"];
 
-    if($i1!=NULL || $i2!=NULL || $i3!=NULL || $i4!=NULL){
+    if($i1!=0 || $i2!=0 || $i3!=0 || $i4!=0){
         $nid = (int)$bno;
         $nid = $nid+1;
         $INSERT = "INSERT Into bill (bno)values(?)";
@@ -55,6 +55,25 @@
         $conn->query($sql);
         $sql = "UPDATE bill SET i4='$i4' where bno='$nid'";
         $conn->query($sql);
+
+        $m = "Bill created";
+        $l = "../../dashboard/bill.php";
+        $t = "success";
+        pop($l,$m,$t);
     }
 
+    if($i1==0 && $i2==0 && $i3==0 && $i4==0){
+        $m = "Empty bill";
+        $l = "../../dashboard/bill.php";
+        $t = "error";
+        pop($l,$m,$t);
+    }
+
+    function pop ($l,$m,$t){
+        echo '<script src="../js/jquery-3.6.0.min.js"></script>';
+        echo '<script src="../js/sweetalert2.all.min.js"></script>';
+        echo '<script type="text/javascript">';
+        echo "setTimeout(function () { Swal.fire('','$m','$t').then(function (result) {if (result.value) {window.location = '$l';}})";
+        echo '},100);</script>';
+    }
 ?>
