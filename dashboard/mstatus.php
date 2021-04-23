@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+    <?php
+    session_start();
+    ?>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -340,49 +343,98 @@
               </ul>
             </div>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Status</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="#">Overview</a></li>
+                <li class="nav-item"> <a class="nav-link" href="#">Update</a></li>
+              </ul>
+            </div>
+          </li>
         </ul>
       </nav>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">            
-            <div class="col-lg-6 grid-margin stretch-card">
+          <div class="row">
+            <div class="col-md-4 col-md-offset-3">
               <div class="card">
                 <div class="card-body">
-                <form name="myform" action="billuser.php" method="POST">
-                  <h3 class="card-title">Bill generation</h3>
+                  <h4 class="card-title">Status update</h4>
+                  <form class="forms-sample" action="../login/php/supdate.php" method="POST">
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">Bill</label>
+                      <select class="js-example-basic-single w-100" id="bill" name="bill">
+                        <option value="nan" disabled selected>Selelct </option>
+                        <option value="ip">In Progress</option>
+                        <option value="dl">Delivered</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                    <label for="exampleInputUsername1">Payment</label>
+                      <select class="js-example-basic-single w-100" id="pay" name="pay">
+                        <option value="nan" disabled selected>Selelct </option>
+                        <option value="up">Pending</option>
+                        <option value="p">Paid</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                    <button type="update" class="btn btn-primary mr-2">Update</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            </div>
+          
+          <div class="col-md-4 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Current Price</h4>
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <thead>
-                        <tr>  
-                          <th></th>
-                          <th>ID</th>
-                          <th>Name</th>
-                          <th>Place</th>
+                        <tr class="table-info">
+                          <th>Type</th>
+                          <th>Acknowledgement</th>
                         </tr>
                       </thead>
                       <tbody>
                       <?php
+                        $bno = $_SESSION['bno'];
                         $conn = mysqli_connect("localhost", "root", "", "bio");
                         // Check connection
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT id,name,place FROM users";
+                        $sql = "SELECT * FROM status where bno='$bno'";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                         // output data of each row
                         while($row = $result->fetch_assoc()) {
-                            $i = $row["id"];
-                            echo "<tr><label class='form-check-success'><td><input type='radio' class='form-check-success' name='bill' id='$i' value='$i'></td><td><label class='badge badge-info'>" . $row["id"]. "</label></td><td>" . $row["name"]. "</td><td>" . $row["place"] . "</td><td></label></tr>";
-                        }
+                            if($row["bill"] == "ip"){
+                                $b = "In Progress";
+                            }
+                            if($row["bill"] == "dl"){
+                                $b = "Delivered";
+                            }
+                            if($row["pay"] == "up"){
+                                $p = "Pending";
+                            }
+                            if($row["pay"] == "p"){
+                                $p = "Paid";
+                            }
+                            echo "<tr><td class='table-warning'>" . "Bill" . "</td><td>" . $b. "</td></tr><tr><td class='table-warning'>" . "Payment" . "</td><td>" . $p. "</td></tr>";
+                        }   
                         } else { echo "0 results"; }
                         $conn->close();
-                      ?>
+                    ?>
                       </tbody>
                     </table>
-                    <button type="submit" class="btn btn-primary mr-2">Generate</button>
-                    </form>
                   </div>
                 </div>
               </div>

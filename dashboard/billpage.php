@@ -324,7 +324,7 @@
             <div class="collapse" id="bills">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="bill.php">New bill</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Bill list</a></li>
+                <li class="nav-item"> <a class="nav-link" href="blist.php">Bill list</a></li>
               </ul>
             </div>
           </li>
@@ -491,6 +491,12 @@
                           <p class="text-uppercase"><strong>Total</strong></p>
                           <p class="totals-value font-weight-bold cart-total">00.00</p>
                         </div>
+                      </div>
+                      <div class="form-check form-check-flat form-check-primary">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="del" name="del" value="True">
+                          Deliver the bill
+                        </label>
                       </div>
                       <button type="submit" class="mt-3 btn btn-pay w-100 justify-content-between btn-lg rounded-0">Submit</button>
                     </div>

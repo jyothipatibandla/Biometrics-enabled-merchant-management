@@ -1,7 +1,8 @@
 <?php
-$jsonurl = "http://api.openweathermap.org/data/2.5/weather?q=London,uk";
-$json = file_get_contents($jsonurl);
+ 
+$a="Hello";
+$n='1';
+$hashed = hash("sha512", $a);
+echo shell_exec("python test.py $n $hashed");
 
-$weather = json_decode($json);
-$celcius = $kelvin - 273.15;
 ?>

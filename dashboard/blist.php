@@ -343,50 +343,77 @@
         </ul>
       </nav>
       <!-- partial -->
+      <?php
+
+        $conn = mysqli_connect("localhost", "root", "", "bio");
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        $sql = "SELECT * FROM users";
+        $result = $conn->query($sql);
+        $user = mysqli_num_rows($result);
+        $sql = "SELECT * FROM bill";
+        $result = $conn->query($sql);
+        $bill = mysqli_num_rows($result);
+      ?>
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">            
-            <div class="col-lg-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                <form name="myform" action="billuser.php" method="POST">
-                  <h3 class="card-title">Bill generation</h3>
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>  
-                          <th></th>
-                          <th>ID</th>
-                          <th>Name</th>
-                          <th>Place</th>
-                        </tr>
-                      </thead>
-                      <tbody>
+          <div class="row">
+             <div class="col-md-5 grid-margin transparent">
+              <div class="row">
+                <div class="col-md-6 mb-4 stretch-card transparent">
+                  <div class="card card-tale">
+                    <div class="card-body">
+                      <p class="mb-4">Search by</p>
+                      <a href="cbill.php" style="color:white">
+                        <p class="fs-30 mb-2" >Customer</p>
+                      </a>
                       <?php
-                        $conn = mysqli_connect("localhost", "root", "", "bio");
-                        // Check connection
-                        if ($conn->connect_error) {
-                            die("Connection failed: " . $conn->connect_error);
-                        }
-                        $sql = "SELECT id,name,place FROM users";
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                        // output data of each row
-                        while($row = $result->fetch_assoc()) {
-                            $i = $row["id"];
-                            echo "<tr><label class='form-check-success'><td><input type='radio' class='form-check-success' name='bill' id='$i' value='$i'></td><td><label class='badge badge-info'>" . $row["id"]. "</label></td><td>" . $row["name"]. "</td><td>" . $row["place"] . "</td><td></label></tr>";
-                        }
-                        } else { echo "0 results"; }
-                        $conn->close();
+                        echo "<p>Out of " .$user. " Customers</p>";
                       ?>
-                      </tbody>
-                    </table>
-                    <button type="submit" class="btn btn-primary mr-2">Generate</button>
-                    </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4 stretch-card transparent">
+                  <div class="card card-dark-blue">
+                    <div class="card-body">
+                      <p class="mb-4">Search by</p>
+                      <a href="bnlist.php" style="color:white">
+                        <p class="fs-30 mb-2">Bill No</p>
+                      </a>
+                      <?php
+                        echo "<p>Out of " .$bill. " Bills</p>";
+                      ?>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+              <div class="row">
+                <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
+                  <div class="card card-light-blue">
+                    <div class="card-body">
+                      <p class="mb-4">Search by</p>
+                      <a href="" style="color:white">
+                        <p class="fs-30 mb-2">Status</p>
+                      </a>
+                      <p>Out of 4 status</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 stretch-card transparent">
+                  <div class="card card-light-danger">
+                    <div class="card-body">
+                      <p class="mb-4">Get all</p>
+                      <a href="allbill.php" style="color:white">
+                        <p class="fs-30 mb-2">Bills</p>
+                      </a>
+                      <?php
+                        echo "<p>All " .$bill. " Bills</p>";
+                      ?>
+                    </div>
+                  </div>
+                </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- partial -->

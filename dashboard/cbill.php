@@ -349,8 +349,8 @@
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                <form name="myform" action="billuser.php" method="POST">
-                  <h3 class="card-title">Bill generation</h3>
+                <form name="myform" action="cbill1.php" method="POST">
+                  <h3 class="card-title">Search by customer</h3>
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <thead>

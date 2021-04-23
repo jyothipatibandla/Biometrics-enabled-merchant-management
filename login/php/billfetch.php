@@ -10,6 +10,15 @@
     $i3  = $_POST['i3'];
     $i4  = $_POST['i4'];
 
+    if(isset($_POST['del']) && $_POST['del'] == "True") 
+        {
+            $del = 1;
+        }
+        else
+        {
+            $del = 0;
+        }	
+
     $sql = "SELECT * from price ORDER BY pid DESC LIMIT 1";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
@@ -28,6 +37,11 @@
         $nid = (int)$bno;
         $nid = $nid+1;
         $INSERT = "INSERT Into bill (bno)values(?)";
+        $stmt = $conn->prepare($INSERT);
+        $stmt->bind_param("s", $nid);
+        $stmt->execute();
+
+        $INSERT = "INSERT Into status (bno)values(?)";
         $stmt = $conn->prepare($INSERT);
         $stmt->bind_param("s", $nid);
         $stmt->execute();
@@ -55,6 +69,17 @@
         $conn->query($sql);
         $sql = "UPDATE bill SET i4='$i4' where bno='$nid'";
         $conn->query($sql);
+
+        $sql = "UPDATE status SET pay='up' where bno='$nid'";
+        $conn->query($sql);
+        if($del == 0){
+            $sql = "UPDATE status SET bill='ip' where bno='$nid'";
+            $conn->query($sql);
+        }
+        else{
+            $sql = "UPDATE status SET bill='dl' where bno='$nid'";
+            $conn->query($sql);
+        }
 
         $m = "Bill created";
         $l = "../../dashboard/bill.php";

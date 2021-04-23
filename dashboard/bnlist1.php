@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+    <?php
+    session_start();
+    ?>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -349,35 +352,49 @@
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                <form name="myform" action="billuser.php" method="POST">
+                <form name="myform" action="cbillpage1.php" method="POST">
                   <h3 class="card-title">Bill generation</h3>
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <thead>
                         <tr>  
                           <th></th>
-                          <th>ID</th>
-                          <th>Name</th>
-                          <th>Place</th>
+                          <th>Bill No</th>
+                          <th>Date</th>
+                          <th>Time</th>
                         </tr>
                       </thead>
                       <tbody>
                       <?php
+                        $bno = $_POST['bno'];
                         $conn = mysqli_connect("localhost", "root", "", "bio");
                         // Check connection
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT id,name,place FROM users";
+                        $sql = "SELECT * FROM bill WHERE bno='$bno'";
                         $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
+                        if ($result && $result->num_rows > 0) {
                         // output data of each row
                         while($row = $result->fetch_assoc()) {
-                            $i = $row["id"];
-                            echo "<tr><label class='form-check-success'><td><input type='radio' class='form-check-success' name='bill' id='$i' value='$i'></td><td><label class='badge badge-info'>" . $row["id"]. "</label></td><td>" . $row["name"]. "</td><td>" . $row["place"] . "</td><td></label></tr>";
+                            $i = $row["bno"];
+                            echo "<tr><label class='form-check-success'><td><input type='radio' class='form-check-success' name='bill' id='$i' value='$i'></td><td><label class='badge badge-success'>" . $row["bno"]. "</label></td><td>" . $row["date"]. "</td><td>" . $row["time"] . "</td><td></label></tr>";
                         }
-                        } else { echo "0 results"; }
+                        } 
+                        else { 
+                            $m = "Invalid bill number";
+                            $l = "cbill.php";
+                            $t = "error";
+                            pop($l,$m,$t); 
+                        }
                         $conn->close();
+                        function pop ($l,$m,$t){
+                            echo '<script src="../login/js/jquery-3.6.0.min.js"></script>';
+                            echo '<script src="../login/js/sweetalert2.all.min.js"></script>';
+                            echo '<script type="text/javascript">';
+                            echo "setTimeout(function () { Swal.fire('','$m','$t').then(function (result) {if (result.value) {window.location = '$l';}})";
+                            echo '},100);</script>';
+                        }
                       ?>
                       </tbody>
                     </table>

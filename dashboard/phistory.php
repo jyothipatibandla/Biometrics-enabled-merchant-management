@@ -315,12 +315,12 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+            <a class="nav-link" data-toggle="collapse" href="#bill" aria-expanded="false" aria-controls="bill">
               <i class="icon-contract menu-icon"></i>
               <span class="menu-title">Bills</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="icons">
+            <div class="collapse" id="bill">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="bill.php">New bill</a></li>
                 <li class="nav-item"> <a class="nav-link" href="#">Bill list</a></li>
@@ -337,6 +337,19 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="price.php">Update Price</a></li>
                 <li class="nav-item"> <a class="nav-link" href="phistory.php">History</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Status</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="#">Overview</a></li>
+                <li class="nav-item"> <a class="nav-link" href="status.php">Update</a></li>
               </ul>
             </div>
           </li>
