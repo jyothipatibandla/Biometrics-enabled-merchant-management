@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+    <?php
+    session_start();
+    ?>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -315,25 +318,25 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#bill" aria-expanded="false" aria-controls="bill">
+            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
               <i class="icon-contract menu-icon"></i>
               <span class="menu-title">Bills</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="bill">
+            <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="bill.php">New bill</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Bill list</a></li>
+                <li class="nav-item"> <a class="nav-link" href="blist.php">Bill list</a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+            <a class="nav-link" data-toggle="collapse" href="#bills" aria-expanded="false" aria-controls="icons">
               <i class="icon-bar-graph menu-icon"></i>
               <span class="menu-title">Price</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="icons">
+            <div class="collapse" id="bills">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="price.php">Update Price</a></li>
                 <li class="nav-item"> <a class="nav-link" href="phistory.php">History</a></li>
@@ -356,51 +359,95 @@
         </ul>
       </nav>
       <!-- partial -->
-
-      
-
-        <div class="main-panel">
+      <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">            
-          <div class="col-md-6 grid-margin">    
+            <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Price History</h4>
+                  <h3 class="card-title">Status Overview</h3>
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <thead>
-                        <tr>
+                        <tr>  
+                          <th>Bill No</th>
                           <th>Date</th>
-                          <th>Time</th>
-                          <th>P1</th>
-                          <th>P2</th>
-                          <th>P3</th>
-                          <th>P4</th>
+                          <th>ID</th>
+                          <th>Bill status</th>
+                          <th>Payment status</th>
                         </tr>
                       </thead>
                       <tbody>
                       <?php
+                        $bno = $_POST['bno'];
                         $conn = mysqli_connect("localhost", "root", "", "bio");
                         // Check connection
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT * FROM price  ORDER BY pid DESC LIMIT 5";
+                        $sql = "SELECT * FROM bill where bno='$bno'";
                         $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
+
+                        if ($result && $result->num_rows > 0) {
                         // output data of each row
                         while($row = $result->fetch_assoc()) {
-                            echo "<tr><td class='table-danger'>" . $row["date"]. "</td><td class='table-success'>" . $row["time"]. "</td><td>" . $row["i1"] . "</td><td>". $row["i2"] ."</td><td>" . $row["i3"] . "</td><td>". $row["i4"] . "</td><td>";
+                            $i = $row["bno"];
+                            $sql1 = "SELECT * FROM status where bno='$i'";
+                            $result1 = $conn->query($sql1);
+                            $row1 = $result1->fetch_assoc();
+
+                            $bs = $row1["bill"];
+                            $ps = $row1["pay"];
+
+                            if($bs == "ip"){
+                                $bo = '<p class="text-warning">In progress</p>';
+                            }
+                            if($bs == "dl"){
+                                $bo = '<p class="text-info">Delivered</p>';
+                            }
+                            if($ps == "up"){
+                                $po = '<p class="text-danger">Pending</p>';
+                            }
+                            if($ps == "p"){
+                                $po = '<p class="text-success">Paid</p>';
+                            }
+                            echo "<tr><td><label class='badge badge-success'>" . $row["bno"]. "</label></td><td>" . $row["date"]. "</td><td>" . $row["id"] . "</td><td>".$bo."</td><td>".$po."</td></label></tr>";
                         }
-                        } else { echo "0 results"; }
+                        } else { 
+                            $m = "Bill does not exist";
+                            $l = "sover.php";
+                            $t = "error";
+                            pop($l,$m,$t); 
+                        }
                         $conn->close();
-                    ?>
+                        function pop ($l,$m,$t){
+                            echo '<script src="../login/js/jquery-3.6.0.min.js"></script>';
+                            echo '<script src="../login/js/sweetalert2.all.min.js"></script>';
+                            echo '<script type="text/javascript">';
+                            echo "setTimeout(function () { Swal.fire('','$m','$t').then(function (result) {if (result.value) {window.location = '$l';}})";
+                            echo '},100);</script>';
+                        }
+                      ?>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
             </div>
+            <div class="col-md-4 col-md-offset-3">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Search Bill no</h4>
+                  <form class="forms-sample" action="#" method="POST">
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">Bill no</label>
+                      <input type="text" class="form-control" name="bno" id="bno" placeholder="Bill no">
+                    </div>
+                    <button type="submit" class="btn btn-outline-success btn-fw">Search</button>
+                    <a class="btn btn-outline-danger btn-fw" href="sover.php" role="button">Overview</a>
+                  </form>
+                </div>
+              </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- partial -->

@@ -315,7 +315,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#bill" aria-expanded="false" aria-controls="bill">
+            <a class="nav-link" data-toggle="collapse" href="#bill" aria-expanded="false" aria-controls="icons">
               <i class="icon-contract menu-icon"></i>
               <span class="menu-title">Bills</span>
               <i class="menu-arrow"></i>
@@ -323,7 +323,7 @@
             <div class="collapse" id="bill">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="bill.php">New bill</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Bill list</a></li>
+                <li class="nav-item"> <a class="nav-link" href="blist.php">Bill list</a></li>
               </ul>
             </div>
           </li>
@@ -340,67 +340,28 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="icon-layout menu-icon"></i>
-              <span class="menu-title">Status</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="sover.php">Overview</a></li>
-                <li class="nav-item"> <a class="nav-link" href="status.php">Update</a></li>
-              </ul>
-            </div>
-          </li>
         </ul>
       </nav>
       <!-- partial -->
-
-      
-
-        <div class="main-panel">
+      <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">            
-          <div class="col-md-6 grid-margin">    
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Price History</h4>
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>Date</th>
-                          <th>Time</th>
-                          <th>P1</th>
-                          <th>P2</th>
-                          <th>P3</th>
-                          <th>P4</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      <?php
-                        $conn = mysqli_connect("localhost", "root", "", "bio");
-                        // Check connection
-                        if ($conn->connect_error) {
-                            die("Connection failed: " . $conn->connect_error);
-                        }
-                        $sql = "SELECT * FROM price  ORDER BY pid DESC LIMIT 5";
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                        // output data of each row
-                        while($row = $result->fetch_assoc()) {
-                            echo "<tr><td class='table-danger'>" . $row["date"]. "</td><td class='table-success'>" . $row["time"]. "</td><td>" . $row["i1"] . "</td><td>". $row["i2"] ."</td><td>" . $row["i3"] . "</td><td>". $row["i4"] . "</td><td>";
-                        }
-                        } else { echo "0 results"; }
-                        $conn->close();
-                    ?>
-                      </tbody>
-                    </table>
-                  </div>
+                  <h4 class="card-title">Search Bill no</h4>
+                  <form class="forms-sample" action="bnlist1.php" method="POST">
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">Bill no</label>
+                      <input type="text" class="form-control" name="bno" id="bno" placeholder="Bill no">
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    
+                  </form>
                 </div>
               </div>
             </div>
+          </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- partial -->

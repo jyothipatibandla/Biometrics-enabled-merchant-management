@@ -81,10 +81,17 @@
             $conn->query($sql);
         }
 
-        $m = "Bill created";
-        $l = "../../dashboard/bill.php";
-        $t = "success";
-        pop($l,$m,$t);
+        $msg = $nid.$date.$time.$id.$i1.$d1.$i2.$d2.$i3.$d3.$i4.$d4;
+        echo $msg;
+        $hashed = hash("sha512", $msg);
+        echo $hashed;
+        echo shell_exec("python test.py $nid $hashed");
+        echo 'Done';
+
+        #$m = "Bill created";
+        #$l = "../../dashboard/bill.php";
+        #$t = "success";
+        #pop($l,$m,$t);
     }
 
     if($i1==0 && $i2==0 && $i3==0 && $i4==0){

@@ -8,8 +8,10 @@ from mysql.connector import Error
 from Crypto.PublicKey import RSA
 from hashlib import sha512
 
+print('1')
 x=sys.argv[1]
-hash=sys.argv[2]
+hashed=sys.argv[2]
+print(hashed)
 #x='1'
 print (x)
 
@@ -54,9 +56,9 @@ msg = msg.encode()
 print("test")
 #hash = int.from_bytes(sha512(msg).digest(), byteorder='big')
 print("test")
-hash = 2
+#hash = 2
 #print(hash)
-signature = pow(hash, keyPair.d, keyPair.n)
+signature = pow(hashed, keyPair.d, keyPair.n)
 print("test")
 pn=str(keyPair.n)
 pe=str(keyPair.e)

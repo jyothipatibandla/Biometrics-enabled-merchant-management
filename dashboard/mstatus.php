@@ -351,8 +351,8 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">Overview</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Update</a></li>
+                <li class="nav-item"> <a class="nav-link" href="sover.php">Overview</a></li>
+                <li class="nav-item"> <a class="nav-link" href="status.php">Update</a></li>
               </ul>
             </div>
           </li>
