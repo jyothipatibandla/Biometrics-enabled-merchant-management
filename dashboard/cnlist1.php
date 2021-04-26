@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+    <?php
+    session_start();
+    ?>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -295,50 +298,31 @@
       <!-- partial:../../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">
+        <li class="nav-item">
+            <a class="nav-link" href="cindex.html">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
-              <span class="menu-title">Users</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="userlist.php"> User list </a></li>
-                <li class="nav-item"> <a class="nav-link" href="adduser.html"> Add user </a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
               <i class="icon-contract menu-icon"></i>
-              <span class="menu-title">Bills</span>
+              <span class="menu-title">Search bill</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="bill.php">New bill</a></li>
-                <li class="nav-item"> <a class="nav-link" href="blist.php">Bill list</a></li>
+                <li class="nav-item"> <a class="nav-link" href="cnlist.php">By number</a></li>
+                <li class="nav-item"> <a class="nav-link" href="#">By status</a></li>
+                <li class="nav-item"> <a class="nav-link" href="callbill.php">All bills</a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#bills" aria-expanded="false" aria-controls="icons">
-              <i class="icon-bar-graph menu-icon"></i>
-              <span class="menu-title">Price</span>
-              <i class="menu-arrow"></i>
+            <a class="nav-link" href="#">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Status</span>
             </a>
-            <div class="collapse" id="bills">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="price.php">Update Price</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">History</a></li>
-              </ul>
-            </div>
           </li>
         </ul>
       </nav>
@@ -349,35 +333,65 @@
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                <form name="myform" action="billuser.php" method="POST">
+                <form name="myform" action="cnlist2.php" method="POST">
                   <h3 class="card-title">Bill generation</h3>
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <thead>
                         <tr>  
                           <th></th>
-                          <th>ID</th>
-                          <th>Name</th>
-                          <th>Place</th>
+                          <th>Bill No</th>
+                          <th>Date</th>
+                          <th>Time</th>
                         </tr>
                       </thead>
                       <tbody>
                       <?php
+                        $id = $_SESSION['id'];
+                        $bno = $_POST['bno'];
                         $conn = mysqli_connect("localhost", "root", "", "bio");
                         // Check connection
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT id,name,place FROM users";
+                        $flag = 0;
+                        $sql = "SELECT * FROM bill WHERE bno='$bno' and id='$id'";
                         $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
+                        if ($result && $result->num_rows > 0) {
                         // output data of each row
-                        while($row = $result->fetch_assoc()) {
-                            $i = $row["id"];
-                            echo "<tr><label class='form-check-success'><td><input type='radio' class='form-check-success' name='bill' id='$i' value='$i'></td><td><label class='badge badge-info'>" . $row["id"]. "</label></td><td>" . $row["name"]. "</td><td>" . $row["place"] . "</td><td></label></tr>";
+                            while($row = $result->fetch_assoc()) {
+                                $i = $row["bno"];
+                                $sql1 = "SELECT * FROM status where bno='$i'";
+                                $result1 = $conn->query($sql1);
+                                if($result1 && $result1->num_rows > 0){
+                                    $row1 = $result1->fetch_assoc();
+                                    if($row1["bill"] == 'dl'){
+                                        echo "<tr><label class='form-check-success'><td><input type='radio' class='form-check-success' name='bill' id='$i' value='$i'></td><td><label class='badge badge-success'>" . $row["bno"]. "</label></td><td>" . $row["date"]. "</td><td>" . $row["time"] . "</td><td></label></tr>";
+                                        $flag = $flag+1;
+                                    }
+                                }
+                            }
+                        } 
+                        else { 
+                            $m = "Invalid bill number";
+                            $l = "cnlist.php";
+                            $t = "error";
+                            pop($l,$m,$t); 
                         }
-                        } else { echo "0 results"; }
+                        if($flag == 0){
+                            $m = "No bills";
+                            $l = "cnlist.php";
+                            $t = "error";
+                            pop($l,$m,$t);
+                        }
                         $conn->close();
+                        function pop ($l,$m,$t){
+                            echo '<script src="../login/js/jquery-3.6.0.min.js"></script>';
+                            echo '<script src="../login/js/sweetalert2.all.min.js"></script>';
+                            echo '<script type="text/javascript">';
+                            echo "setTimeout(function () { Swal.fire('','$m','$t').then(function (result) {if (result.value) {window.location = '$l';}})";
+                            echo '},100);</script>';
+                        }
                       ?>
                       </tbody>
                     </table>

@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+  <?php
+    session_start();
+  ?>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -38,9 +41,81 @@
             <div class="input-group">
               <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
                 <span class="input-group-text" id="search">
+                  <i class="icon-search"></i>
                 </span>
               </div>
+              <input type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
             </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+              <i class="icon-bell mx-0"></i>
+              <span class="count"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+              <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-success">
+                    <i class="ti-info-alt mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal">Application Error</h6>
+                  <p class="font-weight-light small-text mb-0 text-muted">
+                    Just now
+                  </p>
+                </div>
+              </a>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-warning">
+                    <i class="ti-settings mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal">Settings</h6>
+                  <p class="font-weight-light small-text mb-0 text-muted">
+                    Private message
+                  </p>
+                </div>
+              </a>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-info">
+                    <i class="ti-user mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                  <p class="font-weight-light small-text mb-0 text-muted">
+                    2 days ago
+                  </p>
+                </div>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+              <img src="images/faces/face28.jpg" alt="profile"/>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item">
+                <i class="ti-settings text-primary"></i>
+                Settings
+              </a>
+              <a class="dropdown-item">
+                <i class="ti-power-off text-primary"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+          <li class="nav-item nav-settings d-none d-lg-flex">
+            <a class="nav-link" href="#">
+              <i class="icon-ellipsis"></i>
+            </a>
           </li>
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
@@ -224,95 +299,91 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="cindex.html">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
-              <span class="menu-title">Users</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="userlist.php"> User list </a></li>
-                <li class="nav-item"> <a class="nav-link" href="adduser.html"> Add user </a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#bill" aria-expanded="false" aria-controls="icons">
+            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
               <i class="icon-contract menu-icon"></i>
               <span class="menu-title">Bills</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="bill">
+            <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="bill.php">New bill</a></li>
+                <li class="nav-item"> <a class="nav-link" href="#">New bill</a></li>
+                <li class="nav-item"> <a class="nav-link" href="#">Bill list</a></li>
                 <li class="nav-item"> <a class="nav-link" href="#">Bill list</a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-              <i class="icon-bar-graph menu-icon"></i>
-              <span class="menu-title">Price</span>
-              <i class="menu-arrow"></i>
+            <a class="nav-link" href="#">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Status</span>
             </a>
-            <div class="collapse" id="icons">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="price.php">Update Price</a></li>
-                <li class="nav-item"> <a class="nav-link" href="phistory.php">History</a></li>
-              </ul>
-            </div>
           </li>
         </ul>
       </nav>
       <!-- partial -->
-
-      
-
-        <div class="main-panel">
-        <div class="content-wrapper">
-          <div class="row">            
-            <div class="col-lg-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">User list</h4>
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>Name</th>
-                          <th>Place</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      <?php
-                        $conn = mysqli_connect("localhost", "root", "", "bio");
-                        // Check connection
-                        if ($conn->connect_error) {
-                            die("Connection failed: " . $conn->connect_error);
-                        }
-                        $sql = "SELECT id,name,place FROM users";
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                        // output data of each row
-                        while($row = $result->fetch_assoc()) {
-                            echo "<tr><td><label class='badge badge-info'>" . $row["id"]. "</label></td><td>" . $row["name"]. "</td><td>" . $row["place"] . "</td><td>";
-                        }
-                        } else { echo "0 results"; }
-                        $conn->close();
-                    ?>
-                      </tbody>
-                    </table>
+      <?php
+        $id = $_SESSION['id'];
+        $conn = mysqli_connect("localhost", "root", "", "bio");
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        $sql = "SELECT * FROM bill WHERE id='$id'";
+        $result = $conn->query($sql);
+        if ($result && $result->num_rows > 0) {
+        $bill = mysqli_num_rows($result);
+          echo '
+          <div class="main-panel">
+            <div class="content-wrapper">
+              <div class="row">
+                <div class="col-md-5 grid-margin transparent">
+                  <div class="row">
+                    <div class="col-md-6 mb-4 stretch-card transparent">
+                      <div class="card card-dark-blue">
+                        <div class="card-body">
+                          <p class="mb-3">Search by</p>
+                          <a href="bnlist.php" style="color:white">
+                            <p class="fs-30 mb-2">Bill No</p>
+                          </a>
+                            <p>Out of '.$bill.' Bills</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
+                      <div class="card card-light-blue">
+                        <div class="card-body">
+                          <p class="mb-3">Search by</p>
+                          <a href="" style="color:white">
+                            <p class="fs-30 mb-2">Status</p>
+                          </a>
+                          <p>Out of 4 status</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 stretch-card transparent">
+                      <div class="card card-light-danger">
+                        <div class="card-body">
+                          <p class="mb-3">Get all</p>
+                          <a href="allbill.php" style="color:white">
+                            <p class="fs-30 mb-2">Bills</p>
+                          </a>
+                            <p>All '.$bill.' Bills</p>
+                        </div>
+                      </div>
+                    </div>';
+            }
+                else{
+                  echo 'No bills';
+                }
+                ?>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- partial -->

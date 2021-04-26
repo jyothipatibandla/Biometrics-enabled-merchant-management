@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $id = strtoupper($_POST['id']);
 $pass  = $_POST['pass'];
 
@@ -38,6 +40,7 @@ else{
         $dbpass = $row['pass1'];
         $pass = md5($pass);
         if($pass == $dbpass){
+            $_SESSION['id'] = $id;
             header('Location: ../../dashboard/cindex.html');
         }
         else{

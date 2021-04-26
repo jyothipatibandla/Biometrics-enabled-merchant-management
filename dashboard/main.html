@@ -2,80 +2,78 @@
     <head>
         <link rel="stylesheet" href="main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-.button {
-  border-radius: 25px;
-  background-color: #f4511e;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 28px;
-  padding: 65px;
-  width: 260px;
-  transition: all 0.9s;
-  cursor: pointer;
-  margin: 1px;
-}
+        <title>BillBox</title>
+        <link rel="shortcut icon" href="images/favicon.png" />
+        <style>
+          .button {
+            border-radius: 25px;
+            background-color: #f4511e;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 28px;
+            padding: 65px;
+            width: 260px;
+            transition: all 0.9s;
+            cursor: pointer;
+            margin: 1px;
+          }
 
-.button span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
+          .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+          }
 
-.button span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-.text-center {
-  text-align: center;
-}
-.button:hover span {
-  padding-right: 25px;
-}
+          .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+          }
+          .text-center {
+            text-align: center;
+          }
+          .button:hover span {
+            padding-right: 25px;
+          }
 
-.button:hover span:after {
-  opacity: 1;
-  right: 0;
-}
-.container {
-  height: 100px;
-  position: relative;
-}
+          .button:hover span:after {
+            opacity: 1;
+            right: 0;
+          }
+          .container {
+            height: 100px;
+            position: relative;
+          }
 
-.center {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-.flex {
-  display: flex;
-  justify-content: center;
-}
+          .center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+          }
+          .flex {
+            display: flex;
+            justify-content: center;
+          }
 
-.flex-item + .flex-item {
-  margin-left: 70px;
-}
-</style>
-    </head>
+          .flex-item + .flex-item {
+            margin-left: 70px;
+          }
+        </style>
+      </head>
     <body>
-
-      
-        
-    <div class="context">
-    </div>
-    <div class="area" >
-      <div class="container">
-        <img src="images/favicon.png" alt="Logo" width="85" height="85">
-      </div>
+      <div class="context"></div>
+      <div class="area" >
+        <div class="container">
+          <img src="images/favicon.png" alt="Logo" width="85" height="85">
+        </div>
             <ul class="circles">
                     <li></li>
                     <li></li>

@@ -298,63 +298,31 @@
       <!-- partial:../../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">
+        <li class="nav-item">
+            <a class="nav-link" href="cindex.html">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
-              <span class="menu-title">Users</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="userlist.php"> User list </a></li>
-                <li class="nav-item"> <a class="nav-link" href="adduser.html"> Add user </a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
               <i class="icon-contract menu-icon"></i>
-              <span class="menu-title">Bills</span>
+              <span class="menu-title">Search bill</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="bill.php">New bill</a></li>
-                <li class="nav-item"> <a class="nav-link" href="blist.php">Bill list</a></li>
+                <li class="nav-item"> <a class="nav-link" href="cnlist.php">By number</a></li>
+                <li class="nav-item"> <a class="nav-link" href="#">By status</a></li>
+                <li class="nav-item"> <a class="nav-link" href="callbill.php">All bills</a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#bills" aria-expanded="false" aria-controls="icons">
-              <i class="icon-bar-graph menu-icon"></i>
-              <span class="menu-title">Price</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="bills">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="price.php">Update Price</a></li>
-                <li class="nav-item"> <a class="nav-link" href="phistory.php">History</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link" href="#">
               <i class="icon-layout menu-icon"></i>
               <span class="menu-title">Status</span>
-              <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="sover.php">Overview</a></li>
-                <li class="nav-item"> <a class="nav-link" href="status.php">Update</a></li>
-              </ul>
-            </div>
           </li>
         </ul>
       </nav>
@@ -365,59 +333,55 @@
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h3 class="card-title">Status Overview</h3>
+                <form name="myform" action="callbill1.php" method="POST">
+                  <h3 class="card-title">Bill generation</h3>
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <thead>
                         <tr>  
+                          <th></th>
                           <th>Bill No</th>
                           <th>Date</th>
-                          <th>ID</th>
-                          <th>Bill status</th>
-                          <th>Payment status</th>
+                          <th>Time</th>
                         </tr>
                       </thead>
                       <tbody>
                       <?php
-                        $bno = $_POST['bno'];
+                        $id = $_SESSION['id'];
                         $conn = mysqli_connect("localhost", "root", "", "bio");
                         // Check connection
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT * FROM bill where bno='$bno'";
+                        $flag = 0;
+                        $sql = "SELECT * FROM bill where id='$id'";
                         $result = $conn->query($sql);
-
-                        if ($result && $result->num_rows > 0) {
+                        if ($result && $result->num_rows > 0){
                         // output data of each row
-                        while($row = $result->fetch_assoc()) {
-                            $i = $row["bno"];
-                            $sql1 = "SELECT * FROM status where bno='$i'";
-                            $result1 = $conn->query($sql1);
-                            $row1 = $result1->fetch_assoc();
-
-                            $bs = $row1["bill"];
-                            $ps = $row1["pay"];
-
-                            if($bs == "ip"){
-                                $bo = '<p class="text-warning">In progress</p>';
+                            while($row = $result->fetch_assoc()) {
+                                $i = $row["bno"];
+                                $sql1 = "SELECT * FROM status where bno='$i'";
+                                $result1 = $conn->query($sql1);
+                                if($result1 && $result1->num_rows > 0){
+                                    $row1 = $result1->fetch_assoc();
+                                    if($row1["bill"] == 'dl'){
+                                        echo "<tr><label class='form-check-success'><td><input type='radio' class='form-check-success' name='bill' id='$i' value='$i'></td><td><label class='badge badge-success'>" . $row["bno"]. "</label></td><td>" . $row["date"]. "</td><td>" . $row["time"] . "</td><td></label></tr>";
+                                        $flag = $flag+1;
+                                    }
+                                }
                             }
-                            if($bs == "dl"){
-                                $bo = '<p class="text-info">Delivered</p>';
-                            }
-                            if($ps == "up"){
-                                $po = '<p class="text-danger">Pending</p>';
-                            }
-                            if($ps == "p"){
-                                $po = '<p class="text-success">Paid</p>';
-                            }
-                            echo "<tr><td><label class='badge badge-success'>" . $row["bno"]. "</label></td><td>" . $row["date"]. "</td><td>" . $row["id"] . "</td><td>".$bo."</td><td>".$po."</td></label></tr>";
                         }
-                        } else { 
-                            $m = "Bill does not exist";
-                            $l = "sover.php";
+                        else { 
+                            $m = "No bills";
+                            $l = "cindex.html";
                             $t = "error";
                             pop($l,$m,$t); 
+                        }
+                        if($flag == 0){
+                            $m = "No bills";
+                            $l = "cindex.html";
+                            $t = "error";
+                            pop($l,$m,$t);
                         }
                         $conn->close();
                         function pop ($l,$m,$t){
@@ -430,23 +394,12 @@
                       ?>
                       </tbody>
                     </table>
+                    <button type="submit" class="btn btn-primary mr-2">Generate</button>
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4 col-md-offset-3">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Search Bill no</h4>
-                  <form class="forms-sample" action="soverb.php" method="POST">
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="bno" id="bno" placeholder="Bill no">
-                    </div>
-                    <button type="submit" class="btn btn-outline-success btn-fw">Search</button>
-                    <a class="btn btn-outline-danger btn-fw" href="sover.php" role="button">Overview</a>
-                  </form>
-                </div>
-              </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- partial -->

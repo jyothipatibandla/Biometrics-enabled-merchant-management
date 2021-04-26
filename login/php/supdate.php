@@ -26,6 +26,7 @@
     $row = $result->fetch_assoc();
     $dbill = $row["bill"];
     $dpay = $row["pay"];
+    $user = $row["user"];
 
     if($bill == $dbill && $pay == $dpay){
         $l = "../../dashboard/mstatus.php";
@@ -55,16 +56,19 @@
             }
         }
         else{
-            echo "0";
-            if($dpay=="p" && $bill=="ip"){
+            if($user=="r" && $bill=="ip"){
+                $l = "../../dashboard/mstatus.php";
+                $m = "Customer reviewed";
+                $t = "error";
+                pop($l,$m,$t);
+            }
+            elseif($dpay=="p" && $bill=="ip"){
                 $l = "../../dashboard/mstatus.php";
                 $m = "Bill paid";
                 $t = "error";
                 pop($l,$m,$t);
             }
             else{
-                echo "1";
-                echo $bill;
                 if($pay=="nan" && $bill==$dbill){
                     $l = "../../dashboard/mstatus.php";
                     $m = "No change";
@@ -80,7 +84,6 @@
                 if($bill != "nan"){
                     $bill = $_POST['bill'];
                     $sql = "UPDATE status SET bill='$bill' where bno='$bno'";
-                    echo "3";
                     $conn->query($sql);
                     $flag = $flag+1;
                 }

@@ -439,7 +439,6 @@
                   <h4 class="card-title">Search Bill no</h4>
                   <form class="forms-sample" action="soverb.php" method="POST">
                     <div class="form-group">
-                      <label for="exampleInputUsername1">Bill no</label>
                       <input type="text" class="form-control" name="bno" id="bno" placeholder="Bill no">
                     </div>
                     <button type="submit" class="btn btn-outline-success btn-fw">Search</button>

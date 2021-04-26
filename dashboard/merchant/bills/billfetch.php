@@ -96,14 +96,14 @@
 
     if($i1==0 && $i2==0 && $i3==0 && $i4==0){
         $m = "Empty bill";
-        $l = "../../dashboard/bill.php";
+        $l = "bill.php";
         $t = "error";
         pop($l,$m,$t);
     }
 
     function pop ($l,$m,$t){
-        echo '<script src="../js/jquery-3.6.0.min.js"></script>';
-        echo '<script src="../js/sweetalert2.all.min.js"></script>';
+        echo '<script src="../../js/jquery-3.6.0.min.js"></script>';
+        echo '<script src="../../js/sweetalert2.all.min.js"></script>';
         echo '<script type="text/javascript">';
         echo "setTimeout(function () { Swal.fire('','$m','$t').then(function (result) {if (result.value) {window.location = '$l';}})";
         echo '},100);</script>';

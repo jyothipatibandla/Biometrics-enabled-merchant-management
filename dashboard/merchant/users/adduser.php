@@ -67,21 +67,21 @@ else{
         $stmt->bind_param("sss", $id, $name , $place);
         $stmt->execute();
         $m = "User added";
-        $l = "../../dashboard/adduser.html";
+        $l = "adduser.html";
         $t = "success";
         pop($l,$m,$t);
     }
     else{
         $m = "User exists already";
-        $l = "../../dashboard/adduser.html";
+        $l = "adduser.html";
         $t = "error";
         pop($l,$m,$t);
     }
 }
 
 function pop ($l,$m,$t){
-    echo '<script src="../js/jquery-3.6.0.min.js"></script>';
-    echo '<script src="../js/sweetalert2.all.min.js"></script>';
+    echo '<script src="../../js/jquery-3.6.0.min.js"></script>';
+    echo '<script src="../../js/sweetalert2.all.min.js"></script>';
     echo '<script type="text/javascript">';
     echo "setTimeout(function () { Swal.fire('','$m','$t').then(function (result) {if (result.value) {window.location = '$l';}})";
     echo '},100);</script>';

@@ -34,6 +34,7 @@ if (mysqli_connect_error()){
 else{
     $SELECT = "SELECT name From users Where name = ? Limit 1";
     $INSERT = "INSERT Into users (id, name , place)values(?,?,?)";
+    $INSERT1 = "INSERT Into cregister (id, pass1 , pass2)values(?,?,?)";
     $ID_CHECK = "SELECT id From users Where id = ?";
 
     $stmt = $conn->prepare($ID_CHECK);
@@ -65,17 +66,30 @@ else{
     $stmt->close();
 
     if ($rnum==0) {
-        $stmt = $conn->prepare($INSERT);
-        $stmt->bind_param("sss", $id, $name , $place);
-        $stmt->execute();
-        $m = "User added";
-        $l = "../../dashboard/adduser.html";
-        $t = "success";
-        pop($l,$m,$t);
+        if ($pass1==$pass2) {
+            $stmt = $conn->prepare($INSERT);
+            $stmt->bind_param("sss", $id, $name , $place);
+            $stmt->execute();
+
+            $pass1=$pass2=md5($pass1);
+            $stmt = $conn->prepare($INSERT1);
+            $stmt->bind_param("sss", $id, $pass1 , $pass2);
+            $stmt->execute();
+            $m = "User added";
+            $l = "../html/cindex.html";
+            $t = "success";
+            pop($l,$m,$t);
+        }
+        else{
+            $m = "Password mismatch";
+            $l = "../html/newuser.html";
+            $t = "error";
+            pop($l,$m,$t);
+        }
     }
     else{
         $m = "User exists already";
-        $l = "../../dashboard/adduser.html";
+        $l = "../html/cindex.html";
         $t = "error";
         pop($l,$m,$t);
     }

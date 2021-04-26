@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+    <?php
+    session_start();
+    ?>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -295,125 +298,124 @@
       <!-- partial:../../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">
+        <li class="nav-item">
+            <a class="nav-link" href="cindex.html">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
-              <span class="menu-title">Users</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="userlist.php"> User list </a></li>
-                <li class="nav-item"> <a class="nav-link" href="adduser.html"> Add user </a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
               <i class="icon-contract menu-icon"></i>
-              <span class="menu-title">Bills</span>
+              <span class="menu-title">Search bill</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="bill.php">New bill</a></li>
-                <li class="nav-item"> <a class="nav-link" href="blist.php">Bill list</a></li>
+                <li class="nav-item"> <a class="nav-link" href="#">By number</a></li>
+                <li class="nav-item"> <a class="nav-link" href="#">By status</a></li>
+                <li class="nav-item"> <a class="nav-link" href="callbill.php">All bills</a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#bills" aria-expanded="false" aria-controls="icons">
-              <i class="icon-bar-graph menu-icon"></i>
-              <span class="menu-title">Price</span>
-              <i class="menu-arrow"></i>
+            <a class="nav-link" href="scover.php">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Status</span>
             </a>
-            <div class="collapse" id="bills">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="price.php">Update Price</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">History</a></li>
-              </ul>
-            </div>
           </li>
         </ul>
       </nav>
       <!-- partial -->
-      <?php
-
-        $conn = mysqli_connect("localhost", "root", "", "bio");
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-        $sql = "SELECT * FROM users";
-        $result = $conn->query($sql);
-        $user = mysqli_num_rows($result);
-        $sql = "SELECT * FROM bill";
-        $result = $conn->query($sql);
-        $bill = mysqli_num_rows($result);
-      ?>
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">
-             <div class="col-md-5 grid-margin transparent">
-              <div class="row">
-                <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-tale">
-                    <div class="card-body">
-                      <p class="mb-4">Search by</p>
-                      <a href="cbill.php" style="color:white">
-                        <p class="fs-30 mb-2" >Customer</p>
-                      </a>
+          <div class="row">            
+            <div class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="card-title">Status Overview</h3>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>  
+                          <th>Bill No</th>
+                          <th>Date</th>
+                          <th>ID</th>
+                          <th>Bill status</th>
+                          <th>Payment status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
                       <?php
-                        echo "<p>Out of " .$user. " Customers</p>";
+                        $id = $_SESSION['id'];
+                        $bno = $_POST['bno'];
+                        $conn = mysqli_connect("localhost", "root", "", "bio");
+                        // Check connection
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
+                        $sql = "SELECT * FROM bill where bno='$bno' and id='$id'";
+                        $result = $conn->query($sql);
+
+                        if ($result && $result->num_rows > 0) {
+                        // output data of each row
+                        while($row = $result->fetch_assoc()) {
+                            $i = $row["bno"];
+                            $sql1 = "SELECT * FROM status where bno='$i'";
+                            $result1 = $conn->query($sql1);
+                            $row1 = $result1->fetch_assoc();
+
+                            $bs = $row1["bill"];
+                            $ps = $row1["pay"];
+
+                            if($bs == "ip"){
+                                $bo = '<p class="text-warning">In progress</p>';
+                            }
+                            if($bs == "dl"){
+                                $bo = '<p class="text-info">Delivered</p>';
+                            }
+                            if($ps == "up"){
+                                $po = '<p class="text-danger">Pending</p>';
+                            }
+                            if($ps == "p"){
+                                $po = '<p class="text-success">Paid</p>';
+                            }
+                            echo "<tr><td><label class='badge badge-success'>" . $row["bno"]. "</label></td><td>" . $row["date"]. "</td><td>" . $row["id"] . "</td><td>".$bo."</td><td>".$po."</td></label></tr>";
+                        }
+                        } else { 
+                            $m = "Bill does not exist";
+                            $l = "scover.php";
+                            $t = "error";
+                            pop($l,$m,$t); 
+                        }
+                        $conn->close();
+                        function pop ($l,$m,$t){
+                            echo '<script src="../login/js/jquery-3.6.0.min.js"></script>';
+                            echo '<script src="../login/js/sweetalert2.all.min.js"></script>';
+                            echo '<script type="text/javascript">';
+                            echo "setTimeout(function () { Swal.fire('','$m','$t').then(function (result) {if (result.value) {window.location = '$l';}})";
+                            echo '},100);</script>';
+                        }
                       ?>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-dark-blue">
-                    <div class="card-body">
-                      <p class="mb-4">Search by</p>
-                      <a href="bnlist.php" style="color:white">
-                        <p class="fs-30 mb-2">Bill No</p>
-                      </a>
-                      <?php
-                        echo "<p>Out of " .$bill. " Bills</p>";
-                      ?>
-                    </div>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
-                  <div class="card card-light-blue">
-                    <div class="card-body">
-                      <p class="mb-4">Search by</p>
-                      <a href="" style="color:white">
-                        <p class="fs-30 mb-2">Status</p>
-                      </a>
-                      <p>Out of 4 status</p>
+            </div>
+            <div class="col-md-4 col-md-offset-3">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Search Bill no</h4>
+                  <form class="forms-sample" action="scoverb.php" method="POST">
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="bno" id="bno" placeholder="Bill no">
                     </div>
-                  </div>
+                    <button type="submit" class="btn btn-outline-success btn-fw">Search</button>
+                    <a class="btn btn-outline-danger btn-fw" href="scover.php" role="button">Overview</a>
+                  </form>
                 </div>
-                <div class="col-md-6 stretch-card transparent">
-                  <div class="card card-light-danger">
-                    <div class="card-body">
-                      <p class="mb-4">Get all</p>
-                      <a href="allbill.php" style="color:white">
-                        <p class="fs-30 mb-2">Bills</p>
-                      </a>
-                      <?php
-                        echo "<p>All " .$bill. " Bills</p>";
-                      ?>
-                    </div>
-                  </div>
-                </div>
+              </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- partial -->

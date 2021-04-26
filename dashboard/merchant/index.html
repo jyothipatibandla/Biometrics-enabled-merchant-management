@@ -7,20 +7,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>BillBox</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="../dashboard/vendors/feather/feather.css">
-  <link rel="stylesheet" href="../dashboard/vendors/ti-icons/css/themify-icons.css">
-  <link rel="stylesheet" href="../dashboard/vendors/css/vendor.bundle.base.css">
-  <link rel="stylesheet" href="../dashboard/path-to/node_modules/mdi/css/materialdesignicons.min.css"/>
+  <link rel="stylesheet" href="../vendors/feather/feather.css">
+  <link rel="stylesheet" href="../vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="../path-to/node_modules/mdi/css/materialdesignicons.min.css"/>
   <!-- endinject -->
   <!-- Plugin css for this page -->
-  <link rel="stylesheet" href="../dashboard/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-  <link rel="stylesheet" href="../dashboard/vendors/ti-icons/css/themify-icons.css">
-  <link rel="stylesheet" type="../dashboard/text/css" href="../dashboard/js/select.dataTables.min.css">
+  <link rel="stylesheet" href="../vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="../vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" type="../text/css" href="../js/select.dataTables.min.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="../dashboard/css/vertical-layout-light/style.css">
+  <link rel="stylesheet" href="../css/vertical-layout-light/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="../dashboard/images/favicon.png"/>
+  <link rel="shortcut icon" href="../images/favicon.png" />
   <style>
     .navbar-nav {
         position: relative;
@@ -34,8 +34,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-nav" href="index.html"><img src="../dashboard/images/logo.png" /></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../dashboard/images/logo-mini.png" alt="logo"/></a>
+        <a class="navbar-nav" href="index.html"><img src="../images/logo.png" /></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../images/logo-mini.png" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -165,7 +165,7 @@
             </div>
             <ul class="chat-list">
               <li class="list active">
-                <div class="profile"><img src="images/faces/face1.jpg" alt="image"><span class="online"></span></div>
+                <div class="profile"><img src="../images/faces/face1.jpg" alt="image"><span class="online"></span></div>
                 <div class="info">
                   <p>Thomas Douglas</p>
                   <p>Available</p>
@@ -238,21 +238,21 @@
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="userlist.php"> User list </a></li>
-                <li class="nav-item"> <a class="nav-link" href="adduser.html"> Add user </a></li>
+                <li class="nav-item"> <a class="nav-link" href="users/userlist.php">User list</a></li>
+                <li class="nav-item"> <a class="nav-link" href="users/adduser.html">Add user</a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+            <a class="nav-link" data-toggle="collapse" href="#bill" aria-expanded="false" aria-controls="bill">
               <i class="icon-contract menu-icon"></i>
               <span class="menu-title">Bills</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="icons">
+            <div class="collapse" id="bill">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="bill.php">New bill</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Bill list</a></li>
+                <li class="nav-item"> <a class="nav-link" href="bills/bill.php">New bill</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="bills/blist.php">Bill list</a></li>
               </ul>
             </div>
           </li>
@@ -266,6 +266,19 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="price.php">Update Price</a></li>
                 <li class="nav-item"> <a class="nav-link" href="phistory.php">History</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Status</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="#">Overview</a></li>
+                <li class="nav-item"> <a class="nav-link" href="#">Update</a></li>
               </ul>
             </div>
           </li>
@@ -303,7 +316,7 @@
             <div class="col-md-6 grid-margin stretch-card">
               <div class="card tale-bg">
                 <div class="card-people mt-auto">
-                  <img src="images/dashboard/people.svg" alt="people">
+                  <img src="../images/dashboard/people.svg" alt="people">
                   <div class="weather-info">
                     <div class="d-flex">
                       <div>

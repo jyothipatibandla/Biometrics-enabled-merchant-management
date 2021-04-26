@@ -4,13 +4,13 @@ session_start();
 
 $bill = "";
 if(isset($_POST['bill'])){
-    $id = $_POST['bill'];
-    $_SESSION['id'] = $id;
-    header('Location: billpage.php');
+    $bno = $_POST['bill'];
+    $_SESSION['bno'] = $bno;
+    header('Location: fbill.php');
 }
 else{
-    $m = "Select a user";
-    $l = "bill.php";
+    $m = "Select a bill";
+    $l = "cnlist.php";
     $t = "error";
     pop($l,$m,$t);
 }

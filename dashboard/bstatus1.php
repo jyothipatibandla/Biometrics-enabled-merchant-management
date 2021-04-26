@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+    <?php
+    session_start();
+    ?>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,12 +22,6 @@
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
-  <style>
-    .navbar-nav {
-        position: relative;
-        width: 140px;
-      }
-  </style>
 </head>
 
 <body>
@@ -32,8 +29,8 @@
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-nav" href="../../adduser.html"><img src="images/logo.png"/></a>
-        
+        <a class="navbar-brand brand-logo mr-5" href="../../adduser.html"><img src="images/logo.svg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="../../adduser.html"><img src="images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -321,12 +318,12 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#bill" aria-expanded="false" aria-controls="icons">
+            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
               <i class="icon-contract menu-icon"></i>
               <span class="menu-title">Bills</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="bill">
+            <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="bill.php">New bill</a></li>
                 <li class="nav-item"> <a class="nav-link" href="blist.php">Bill list</a></li>
@@ -334,15 +331,28 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+            <a class="nav-link" data-toggle="collapse" href="#bills" aria-expanded="false" aria-controls="icons">
               <i class="icon-bar-graph menu-icon"></i>
               <span class="menu-title">Price</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="icons">
+            <div class="collapse" id="bills">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="price.php">Update Price</a></li>
                 <li class="nav-item"> <a class="nav-link" href="phistory.php">History</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Status</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="sover.php">Overview</a></li>
+                <li class="nav-item"> <a class="nav-link" href="status.php">Update</a></li>
               </ul>
             </div>
           </li>
@@ -351,27 +361,111 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+          <div class="row">            
+            <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Add user</h4>
-                  <form class="forms-sample" action="../login/php/adduser.php" method="POST">
-                    <div class="form-group">
-                      <label for="exampleInputUsername1">Name</label>
-                      <input type="text" class="form-control" name="name" id="name" placeholder="Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputUsername1">Place</label>
-                        <input type="text" class="form-control" name="place" id="place" placeholder="Place">
-                    </div>
-                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                    
-                  </form>
+                
+                  <h3 class="card-title">Status Overview</h3>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>  
+                          <th>Bill No</th>
+                          <th>Date</th>
+                          <th>ID</th>
+                          <th>Bill status</th>
+                          <th>Payment status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <?php
+                        if(isset($_POST['status'])){
+                            $status = $_POST['status'];
+                        }
+                        $conn = mysqli_connect("localhost", "root", "", "bio");
+                        // Check connection
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
+                        if($status == 'ip' || $status == 'dl'){
+                            $sql = "SELECT * FROM status where bill='$status'";
+                        }
+                        if($status == 'up' || $status == 'p'){
+                            $sql = "SELECT * FROM status where pay='$status'";
+                        }
+                        if($status == 'r'){
+                            $sql = "SELECT * FROM status where user='$status'";
+                        }
+                            $result = $conn->query($sql);
+
+                            if ($result && $result->num_rows > 0) {
+                                // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                    $i = $row["bno"];
+                                    $bs = $row["bill"];
+                                    $ps = $row["pay"];
+                                    $sql1 = "SELECT * FROM bill where bno='$i'";
+                                    $result1 = $conn->query($sql1);
+                                    $row1 = $result1->fetch_assoc();
+
+                                    if($bs == "ip"){
+                                        $bo = '<p class="text-warning">In progress</p>';
+                                    }
+                                    if($bs == "dl"){
+                                        $bo = '<p class="text-info">Delivered</p>';
+                                    }
+                                    if($ps == "up"){
+                                        $po = '<p class="text-danger">Pending</p>';
+                                    }
+                                    if($ps == "p"){
+                                        $po = '<p class="text-success">Paid</p>';
+                                    }
+                                    echo "<tr><td><label class='badge badge-success'>" . $row1["bno"]. "</label></td><td>" . $row1["date"]. "</td><td>" . $row1["id"] . "</td><td>".$bo."</td><td>".$po."</td></label></tr>";
+                                }
+                            }
+                            else { 
+                                $m = "No bills";
+                                $l = "bstatus.php";
+                                $t = "error";
+                                pop($l,$m,$t); 
+                            }
+                            $conn->close();
+                        function pop ($l,$m,$t){
+                            echo '<script src="../login/js/jquery-3.6.0.min.js"></script>';
+                            echo '<script src="../login/js/sweetalert2.all.min.js"></script>';
+                            echo '<script type="text/javascript">';
+                            echo "setTimeout(function () { Swal.fire('','$m','$t').then(function (result) {if (result.value) {window.location = '$l';}})";
+                            echo '},100);</script>';
+                        }
+                      ?>
+                      </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-primary mr-2">Generate</button>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+            <div class="col-md-4 col-md-offset-3">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Select status</h4>
+                  <form class="forms-sample" action="bstatus1.php" method="POST">
+                    <div class="form-group">
+                      <select class="js-example-basic-single w-100" id="status" name="status">
+                        <option value="nan" disabled selected>Selelct </option>
+                        <option value="ip">In Progress</option>
+                        <option value="dl">Delivered</option>
+                        <option value="up">Unpaid</option>
+                        <option value="p">Paid</option>
+                        <option value="r">Reviewed</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                    
+                </div>
+              </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- partial -->

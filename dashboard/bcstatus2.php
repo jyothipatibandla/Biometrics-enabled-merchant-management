@@ -4,13 +4,13 @@ session_start();
 
 $bill = "";
 if(isset($_POST['bill'])){
-    $id = $_POST['bill'];
-    $_SESSION['id'] = $id;
-    header('Location: cbillpage.php');
+    $bno = $_POST['bill'];
+    $_SESSION['bno'] = $bno;
+    header('Location: fcbill.php');
 }
 else{
-    $m = "Select a user";
-    $l = "cbill.php";
+    $m = "Select a bill";
+    $l = "bcstatus1.php";
     $t = "error";
     pop($l,$m,$t);
 }

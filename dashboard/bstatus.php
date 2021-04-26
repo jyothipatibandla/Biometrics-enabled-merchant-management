@@ -345,47 +345,28 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">            
-            <div class="col-lg-6 grid-margin stretch-card">
+          <div class="row">
+            <div class="col-md-4 col-md-offset-3">
               <div class="card">
                 <div class="card-body">
-                <form name="myform" action="cbill1.php" method="POST">
-                  <h3 class="card-title">Search by customer</h3>
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>  
-                          <th></th>
-                          <th>ID</th>
-                          <th>Name</th>
-                          <th>Place</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      <?php
-                        $conn = mysqli_connect("localhost", "root", "", "bio");
-                        // Check connection
-                        if ($conn->connect_error) {
-                            die("Connection failed: " . $conn->connect_error);
-                        }
-                        $sql = "SELECT id,name,place FROM users";
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                        // output data of each row
-                        while($row = $result->fetch_assoc()) {
-                            $i = $row["id"];
-                            echo "<tr><label class='form-check-success'><td><input type='radio' class='form-check-success' name='bill' id='$i' value='$i'></td><td><label class='badge badge-info'>" . $row["id"]. "</label></td><td>" . $row["name"]. "</td><td>" . $row["place"] . "</td><td></label></tr>";
-                        }
-                        } else { echo "0 results"; }
-                        $conn->close();
-                      ?>
-                      </tbody>
-                    </table>
-                    <button type="submit" class="btn btn-primary mr-2">Generate</button>
-                    </form>
-                  </div>
+                  <h4 class="card-title">Select status</h4>
+                  <form class="forms-sample" action="bstatus1.php" method="POST">
+                    <div class="form-group">
+                      <select class="js-example-basic-single w-100" id="status" name="status">
+                        <option value="nan" disabled selected>Selelct </option>
+                        <option value="ip">In Progress</option>
+                        <option value="dl">Delivered</option>
+                        <option value="up">Unpaid</option>
+                        <option value="p">Paid</option>
+                        <option value="r">Reviewed</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                    <button type="update" class="btn btn-primary mr-2">Search</button>
+                  </form>
                 </div>
               </div>
+            </div>
             </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
