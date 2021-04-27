@@ -55,70 +55,39 @@
         </ul>
       </div>
     </nav>
-    <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
+      <!-- partial -->
+      <!-- partial:../../partials/_sidebar.html -->
+      <div class="container-fluid page-body-wrapper">
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="../index.html">
+        <li class="nav-item">
+            <a class="nav-link" href="../cindex.html">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
-              <span class="menu-title">Users</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../users/userlist.php"> User list </a></li>
-                <li class="nav-item"> <a class="nav-link" href="../users/adduser.html"> Add user </a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
               <i class="icon-contract menu-icon"></i>
-              <span class="menu-title">Bills</span>
+              <span class="menu-title">Search bill</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="bill.php">New bill</a></li>
-                <li class="nav-item"> <a class="nav-link" href="blist.php">Bill list</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../bill/cnlist.php">By number</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../bill/bcstatus.php">By status</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../bill/callbill.php">All bills</a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#bills" aria-expanded="false" aria-controls="icons">
-              <i class="icon-bar-graph menu-icon"></i>
-              <span class="menu-title">Price</span>
-              <i class="menu-arrow"></i>
+            <a class="nav-link" href="../status/scover.php">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Status</span>
             </a>
-            <div class="collapse" id="bills">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="price.php">Update Price</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">History</a></li>
-              </ul>
-            </div>
           </li>
-          <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <i class="icon-layout menu-icon"></i>
-                <span class="menu-title">Status</span>
-                <i class="menu-arrow"></i>
-              </a>
-              <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="#">Overview</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="#">Update</a></li>
-                </ul>
-              </div>
-            </li>
         </ul>
-    </nav>
+      </nav>
       <!-- partial -->
 
       <?php
@@ -187,14 +156,18 @@
         if($bs == "ip"){
           $bstatus = '<span class="badge badge-danger badge-pill px-25">In progress</span>';
         }
-        elseif($bs == "dl"){
-          $bstatus = '<span class="badge badge-success badge-pill px-25">Delivered</span>';
-        }
-        if($us == "ur"){
-          $ustatus = '<span class="badge badge-warning badge-pill px-25">Un reviewed</span>';
+        elseif($us == "ur"){
+          $bstatus = '<span class="badge badge-warning badge-pill px-25">Un reviewed</span>';
         }
         elseif($us == "r"){
-          $ustatus = '<span class="badge badge-success badge-pill px-25">Reviewed</span>';
+          $bstatus = '<span class="badge badge-success badge-pill px-25">Reviewed</span>';
+        }
+
+        if($us == 'r'){
+            $flag = 1;
+        }
+        else{
+            $flag = 0;
         }
       ?>
       <div class="main-panel">
@@ -293,7 +266,7 @@
                                         ?>
                                     </div>
                                     <?php
-                                      echo '<div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status: </span><span>'.$bstatus.'</span> <span>'.$pstatus.'</span></div>';
+                                      echo '<div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span><span>'.$bstatus.'</span> <span>'.$pstatus.'</span></div>';
                                     ?>
                               </div>
                             </div>
@@ -422,12 +395,26 @@
                         </table>
                     </div>
                     -->
-
+                    <?php
+                    if($flag == 0){
+                        echo'
+                        <form name="myform" action="rupdate.php" method="POST">
                             <div class="row mt-3">
                                 <div class="col-12 col-sm-7 text-grey-d2 text-95 mt-2 mt-lg-0">
-                                    
-                                </div>
+                                    <input type="checkbox" id="review" name="review" value="review">
+                                    <label for="review"> Mark as reviewed</label><br>
+                                    <button type="submit" class="btn btn-success px-2.5 mt-3 mt-lg-0">Update</button>
+                                </form>
+                            </div>';
+                    }
+                    else{
+                        echo'
+                            <div class="row mt-3">
+                            <div class="col-12 col-sm-7 text-grey-d2 text-95 mt-2 mt-lg-0">
 
+                            </div>';
+                    }
+                    ?>
                                 <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last">
                                     <div class="row my-2">
                                         <div class="col-7 text-right">
