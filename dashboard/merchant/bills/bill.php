@@ -75,12 +75,12 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#bill" aria-expanded="false" aria-controls="bill">
+            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
               <i class="icon-contract menu-icon"></i>
               <span class="menu-title">Bills</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="bill">
+            <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="bill.php">New bill</a></li>
                 <li class="nav-item"> <a class="nav-link" href="blist.php">Bill list</a></li>
@@ -88,15 +88,15 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#price" aria-expanded="false" aria-controls="icons">
+            <a class="nav-link" data-toggle="collapse" href="#bills" aria-expanded="false" aria-controls="icons">
               <i class="icon-bar-graph menu-icon"></i>
               <span class="menu-title">Price</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="price">
+            <div class="collapse" id="bills">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="price.php">Update Price</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">History</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../price/price.php">Update Price</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../price/phistory.php">History</a></li>
               </ul>
             </div>
           </li>
@@ -108,13 +108,13 @@
               </a>
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="#">Overview</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="#">Update</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../status/sover.php">Overview</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../status/status.php">Update</a></li>
                 </ul>
               </div>
             </li>
         </ul>
-      </nav>
+    </nav>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">

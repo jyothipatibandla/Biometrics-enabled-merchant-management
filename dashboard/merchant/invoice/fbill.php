@@ -86,8 +86,8 @@
             </a>
             <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="bill.php">New bill</a></li>
-                <li class="nav-item"> <a class="nav-link" href="blist.php">Bill list</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../bills/bill.php">New bill</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../bills/blist.php">Bill list</a></li>
               </ul>
             </div>
           </li>
@@ -99,8 +99,8 @@
             </a>
             <div class="collapse" id="bills">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="price.php">Update Price</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">History</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../price/price.php">Update Price</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../price/phistory.php">History</a></li>
               </ul>
             </div>
           </li>
@@ -112,8 +112,8 @@
               </a>
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="#">Overview</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="#">Update</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../status/sover.php">Overview</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../status/status.php">Update</a></li>
                 </ul>
               </div>
             </li>
