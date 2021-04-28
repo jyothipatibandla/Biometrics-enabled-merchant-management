@@ -9,39 +9,9 @@ import sys
 from Crypto.PublicKey import RSA
 from Crypto.Hash import MD5
 
-x='1'
-print(x)
-sql="select * from bill where bno="
-final = sql+x
-
-try:
-    connection = mysql.connector.connect(host='localhost',database='bio',user='root',password='')
-    
-    if connection.is_connected():
-        sql_select_Query = final
-        cursor = connection.cursor()
-        cursor.execute(sql_select_Query)
-        # get all records
-        records = cursor.fetchall()
-        
-        for row in records:
-            print("BillNo = ", row[0], )
-            print("Date = ", row[1])
-            print("Time  = ", row[2])
-            print("ID  = ", row[3])
-            
-        msg = dumps(str(row[0])+row[1]+row[2]+row[3]+str(row[4])+str(row[5])+str(row[6])+str(row[7])+str(row[8])+str(row[9])+str(row[10])+str(row[11]))
-        print(msg)
-        
-except Error as e:
-    print("Error while connecting to MySQL", e)
-finally:
-    if connection.is_connected():
-        cursor.close()
-        connection.close()
-
-msg=msg.encode()
-h = MD5.new(msg).digest()
-key = RSA.generate(1024)
-sig = key.sign(h, "")
-print (key.verify(h, sig))
+hashed = 8222622224284466262086468064260622466066248666686826046662622226
+signature = 82235647637137414612113248482666326420059249391292300759364601641169682219526945876985762181917483170607086708376722529716438629084199366046117046216167973464949212872620804116203551733701620422787459421234039457802288174107004997925783033209035777959752941444786849380587549524517568391336316762469202227882
+e = 65537
+n = 115198357940040432862897550400222266974579079670020375645743611222657269760943156470055237177612149808478970137982315843257172626445540123706004902387749885226185879374343574117665315013706027247573346261933035907743968383428576383720586529992128735022434293307938382097517160473156151417315068393790137503137
+hashFromSignature = pow(signature, e, n)
+print("Signature valid:", hashed == hashFromSignature)

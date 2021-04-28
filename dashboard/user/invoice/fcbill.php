@@ -36,7 +36,7 @@
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-nav" href="index.html"><img src="../../images/logo.png" /></a>
+        <a class="navbar-nav" href="../cindex.html"><img src="../../images/logo.png" /></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <ul class="navbar-nav navbar-nav-right">
@@ -153,10 +153,7 @@
         elseif($ps == "p"){
           $pstatus = '<span class="badge badge-success badge-pill px-25">Paid</span>';
         }
-        if($bs == "ip"){
-          $bstatus = '<span class="badge badge-danger badge-pill px-25">In progress</span>';
-        }
-        elseif($us == "ur"){
+        if($us == "ur"){
           $bstatus = '<span class="badge badge-warning badge-pill px-25">Un reviewed</span>';
         }
         elseif($us == "r"){
@@ -186,6 +183,10 @@
 
                 <div class="page-tools">
                     <div class="action-buttons">
+                        <a class="btn bg-white btn-light mx-1px text-95" href="sign.php" data-title="Print">
+                            <i class="mr-1 fa fa-check text-success-m1 text-120 w-2"></i>
+                            Verify
+                        </a>
                         <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="Print">
                             <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
                             Print

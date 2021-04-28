@@ -213,6 +213,10 @@
 
                 <div class="page-tools">
                     <div class="action-buttons">
+                        <a class="btn bg-white btn-light mx-1px text-95" href="sign.php" data-title="Print">
+                            <i class="mr-1 fa fa-check text-success-m1 text-120 w-2"></i>
+                            Verify
+                        </a>
                         <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="Print">
                             <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
                             Print

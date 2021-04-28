@@ -46,6 +46,12 @@
         $stmt->bind_param("s", $nid);
         $stmt->execute();
 
+        $INSERT = "INSERT Into ds (bno)values(?)";
+        $stmt = $conn->prepare($INSERT);
+        $stmt->bind_param("s", $nid);
+        $stmt->execute();
+        
+        date_default_timezone_set('Asia/Kolkata'); 
         $date = date('d-m-y');
         $time = date('G:i:s');
         $sql = "UPDATE bill SET id='$id' where bno='$nid'";
@@ -72,6 +78,8 @@
 
         $sql = "UPDATE status SET pay='up' where bno='$nid'";
         $conn->query($sql);
+        $sql = "UPDATE status SET user='ur' where bno='$nid'";
+        $conn->query($sql);
         if($del == 0){
             $sql = "UPDATE status SET bill='ip' where bno='$nid'";
             $conn->query($sql);
@@ -82,16 +90,21 @@
         }
 
         $msg = $nid.$date.$time.$id.$i1.$d1.$i2.$d2.$i3.$d3.$i4.$d4;
-        echo $msg;
-        $hashed = hash("sha512", $msg);
-        echo $hashed;
-        echo shell_exec("python test.py $nid $hashed");
-        echo 'Done';
+        #echo $msg;
+        #echo 'Done';
+        $hash = hash("sha512", $msg);
+        #echo $hash;
+        $hash = base_convert($hash, 16, 10);
+        #echo 'CHECK';
+        #echo $hash;
+        echo shell_exec("python test.py $nid $hash");
+        #echo 'Done';
 
-        #$m = "Bill created";
-        #$l = "../../dashboard/bill.php";
-        #$t = "success";
-        #pop($l,$m,$t);
+        echo '<script src="../../js/jquery-3.6.0.min.js"></script>';
+        echo '<script src="../../js/sweetalert2.all.min.js"></script>';
+        echo '<script type="text/javascript">';
+        echo "setTimeout(function () { Swal.fire('Bill generated','Digitally signed','success').then(function (result) {if (result.value) {window.location = 'bill.php';}})";
+        echo '},100);</script>';
     }
 
     if($i1==0 && $i2==0 && $i3==0 && $i4==0){
