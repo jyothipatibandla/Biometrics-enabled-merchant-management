@@ -6,6 +6,8 @@ $mno = $_POST['mno'];
 $pass1 = $_POST['pass1'];
 $pass2 = $_POST['pass2'];
 
+$id = (string)random_int ( 1000 , 9999 );
+
 if (!empty($name) || !empty($email) || !empty($mno) || !empty($pass1) || !empty($pass2))
 {
 
@@ -24,7 +26,7 @@ if (mysqli_connect_error()){
 else{
   $SELECT = "SELECT email From register Where email = ? Limit 1";
   $SELECTM = "SELECT mno From register Where mno = ? Limit 1";
-  $INSERT = "INSERT Into register (name , email ,mno, pass1, pass2)values(?,?,?,?,?)";
+  $INSERT = "INSERT Into register (name , email ,mno, pass1, pass2, id)values(?,?,?,?,?,?)";
 //Prepare statement
      $stmt = $conn->prepare($SELECT);
      $stmt->bind_param("s", $email);
@@ -44,16 +46,18 @@ else{
      //checking username
       if ($rnum==0 && $rnumm==0) {
         if ($pass1==$pass2) {
+          $_SESSION['id'] = $id;
           $pass1=$pass2=md5($pass1);
           $stmt->close();
           $stmt = $conn->prepare($INSERT);
-          $stmt->bind_param("sssss", $name , $email ,$mno, $pass1, $pass2);
+          $stmt->bind_param("ssssss", $name , $email ,$mno, $pass1, $pass2, $id);
           $stmt->execute();
           $m = "Account created";
-          $l = "../html/index.html";
+          $l = "../html/fregister.html";
           $t = "success";
           pop($l,$m,$t);
         }
+
         else {
           $m = "Password mismatch";
           $l = "../html/index.html";

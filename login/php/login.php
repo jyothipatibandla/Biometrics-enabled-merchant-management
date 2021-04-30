@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $user = $_POST['user'];
 $pass  = $_POST['pass'];
 
@@ -37,8 +39,13 @@ else{
         $row = mysqli_fetch_assoc($result);
         $dbpass = $row['pass1'];
         $pass = md5($pass);
+        $sql = "SELECT * FROM register where email='$user'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $id = $row['id'];
         if($pass == $dbpass){
-            header('Location: ../../dashboard/merchant/index.html');
+            $_SESSION['id'] = $id;
+            header('Location: ../html/finlogin.html');
         }
         else{
             $m = "Incorrect Password";

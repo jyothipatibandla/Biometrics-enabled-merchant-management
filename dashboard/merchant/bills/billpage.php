@@ -272,6 +272,7 @@
                         </label>
                       </div>
                       <button type="submit" class="mt-3 btn btn-primary w-100 justify-content-between btn-lg rounded-1">Submit</button>
+                      </form>
                     </div>
                   </div>
                 </div>

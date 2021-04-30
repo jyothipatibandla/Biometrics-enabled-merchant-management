@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+  <?php
+    session_start();
+  ?>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,6 +30,16 @@
         width: 110px;
       }
   </style>
+  <script type="application/javascript">
+    var northAmericaChartCanvas = $("#north-america-chart").get(0).getContext("2d");
+      var northAmericaChart = new Chart(northAmericaChartCanvas, {
+        type: 'doughnut',
+        data: areaData,
+        options: areaOptions,
+        plugins: northAmericaChartPlugins
+      });
+      document.getElementById('north-america-legend').innerHTML = northAmericaChart.generateLegend();
+  </script>
 </head>
 
 <body>
@@ -58,7 +71,6 @@
           </li>
           <li class="nav-item nav-settings d-none d-lg-flex">
             <a class="nav-link" href="#">
-              
             </a>
           </li>
         </ul>
@@ -69,163 +81,12 @@
     </nav>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-      <!-- partial:partials/_settings-panel.html -->
-      <div id="right-sidebar" class="settings-panel">
-        <i class="settings-close ti-close"></i>
-        <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">CHATS</a>
-          </li>
-        </ul>
-        <div class="tab-content" id="setting-content">
-          <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
-            <div class="add-items d-flex px-3 mb-0">
-              <form class="form w-100">
-                <div class="form-group d-flex">
-                  <input type="text" class="form-control todo-list-input" placeholder="Add To-do">
-                  <button type="submit" class="add btn btn-primary todo-list-add-btn" id="add-task">Add</button>
-                </div>
-              </form>
-            </div>
-            <div class="list-wrapper px-3">
-              <ul class="d-flex flex-column-reverse todo-list">
-                <li>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Team review meeting at 3.00 PM
-                    </label>
-                  </div>
-                  <i class="remove ti-close"></i>
-                </li>
-                <li>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Prepare for presentation
-                    </label>
-                  </div>
-                  <i class="remove ti-close"></i>
-                </li>
-                <li>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Resolve all the low priority tickets due today
-                    </label>
-                  </div>
-                  <i class="remove ti-close"></i>
-                </li>
-                <li class="completed">
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="checkbox" type="checkbox" checked>
-                      Schedule meeting for next week
-                    </label>
-                  </div>
-                  <i class="remove ti-close"></i>
-                </li>
-                <li class="completed">
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="checkbox" type="checkbox" checked>
-                      Project review
-                    </label>
-                  </div>
-                  <i class="remove ti-close"></i>
-                </li>
-              </ul>
-            </div>
-            <h4 class="px-3 text-muted mt-5 font-weight-light mb-0">Events</h4>
-            <div class="events pt-4 px-3">
-              <div class="wrapper d-flex mb-2">
-                <i class="ti-control-record text-primary mr-2"></i>
-                <span>Feb 11 2018</span>
-              </div>
-              <p class="mb-0 font-weight-thin text-gray">Creating component page build a js</p>
-              <p class="text-gray mb-0">The total number of sessions</p>
-            </div>
-            <div class="events pt-4 px-3">
-              <div class="wrapper d-flex mb-2">
-                <i class="ti-control-record text-primary mr-2"></i>
-                <span>Feb 7 2018</span>
-              </div>
-              <p class="mb-0 font-weight-thin text-gray">Meeting with Alisa</p>
-              <p class="text-gray mb-0 ">Call Sarah Graves</p>
-            </div>
-          </div>
-          <!-- To do section tab ends -->
-          <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
-            <div class="d-flex align-items-center justify-content-between border-bottom">
-              <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
-              <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See All</small>
-            </div>
-            <ul class="chat-list">
-              <li class="list active">
-                <div class="profile"><img src="../images/faces/face1.jpg" alt="image"><span class="online"></span></div>
-                <div class="info">
-                  <p>Thomas Douglas</p>
-                  <p>Available</p>
-                </div>
-                <small class="text-muted my-auto">19 min</small>
-              </li>
-              <li class="list">
-                <div class="profile"><img src="images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
-                <div class="info">
-                  <div class="wrapper d-flex">
-                    <p>Catherine</p>
-                  </div>
-                  <p>Away</p>
-                </div>
-                <div class="badge badge-success badge-pill my-auto mx-2">4</div>
-                <small class="text-muted my-auto">23 min</small>
-              </li>
-              <li class="list">
-                <div class="profile"><img src="images/faces/face3.jpg" alt="image"><span class="online"></span></div>
-                <div class="info">
-                  <p>Daniel Russell</p>
-                  <p>Available</p>
-                </div>
-                <small class="text-muted my-auto">14 min</small>
-              </li>
-              <li class="list">
-                <div class="profile"><img src="images/faces/face4.jpg" alt="image"><span class="offline"></span></div>
-                <div class="info">
-                  <p>James Richardson</p>
-                  <p>Away</p>
-                </div>
-                <small class="text-muted my-auto">2 min</small>
-              </li>
-              <li class="list">
-                <div class="profile"><img src="images/faces/face5.jpg" alt="image"><span class="online"></span></div>
-                <div class="info">
-                  <p>Madeline Kennedy</p>
-                  <p>Available</p>
-                </div>
-                <small class="text-muted my-auto">5 min</small>
-              </li>
-              <li class="list">
-                <div class="profile"><img src="images/faces/face6.jpg" alt="image"><span class="online"></span></div>
-                <div class="info">
-                  <p>Sarah Graves</p>
-                  <p>Available</p>
-                </div>
-                <small class="text-muted my-auto">47 min</small>
-              </li>
-            </ul>
-          </div>
-          <!-- chat tab ends -->
-        </div>
-      </div>
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="index.php">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
@@ -282,30 +143,57 @@
               </ul>
             </div>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-bio" aria-expanded="false" aria-controls="ui-bio">
+              <i class="icon-check menu-icon"></i>
+              <span class="menu-title">Biometrics</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-bio">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="bio/sign.php">Signature</a></li>
+              </ul>
+            </div>
+          </li>
         </ul>
       </nav>
       <!-- partial -->
+      <?php
+        $email = $_SESSION['email'];
+        $conn = mysqli_connect("localhost", "root", "", "bio");
+        // Check connection
+        if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+        }
+        $sql = "SELECT * FROM register WHERE email='$email'";
+        $result = $conn->query($sql);
+        if ($result && $result->num_rows > 0) {
+        // output data of each row
+          while($row = $result->fetch_assoc()) {
+            $name = $row["name"];
+          }
+        }
+      ?>
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
             <div class="col-md-12 grid-margin">
               <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                  <h3 class="font-weight-bold">Welcome Aamir</h3>
-                  <h6 class="font-weight-normal mb-0">All systems are running smoothly! You have <span class="text-primary">3 unread alerts!</span></h6>
+                  <?php
+                    echo '<h3 class="font-weight-bold">Welcome '.$name.'</h3>';
+                  ?>
                 </div>
                 <div class="col-12 col-xl-4">
                  <div class="justify-content-end d-flex">
                   <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
-                    <button class="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                     <i class="mdi mdi-calendar"></i> Today (10 Jan 2021)
+                    <button class="btn btn-sm btn-light bg-white" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <?php
+                      $d1 = date(DATE_RFC822);
+                      $d = substr($d1,5,9); 
+                      echo '<i class="mdi mdi-calendar"></i>'.$d;
+                    ?>
                     </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDate2">
-                      <a class="dropdown-item" href="#">January - March</a>
-                      <a class="dropdown-item" href="#">March - June</a>
-                      <a class="dropdown-item" href="#">June - August</a>
-                      <a class="dropdown-item" href="#">August - November</a>
-                    </div>
                   </div>
                  </div>
                 </div>
@@ -320,10 +208,19 @@
                   <div class="weather-info">
                     <div class="d-flex">
                       <div>
-                        <h2 class="mb-0 font-weight-normal"><i class="icon-sun mr-2"></i>31<sup>C</sup></h2>
+                      <?php
+                        $jsonurl = "http://api.openweathermap.org/data/2.5/weather?q=Coimbatore&appid=62345d32f970f82d300636cbb637c9fa";
+                        $json = file_get_contents($jsonurl);
+
+                        $weather = json_decode($json);
+                        $kelvin = $weather->main->temp;
+                        $celcius = $kelvin - 273.15;
+
+                        echo '<h2 class="mb-0 font-weight-normal"><i class="icon-sun mr-2"></i>'.$celcius.'<sup>C</sup></h2>';
+                      ?>
                       </div>
                       <div class="ml-2">
-                        <h4 class="location font-weight-normal">Bangalore</h4>
+                        <h4 class="location font-weight-normal">Coimbatore</h4>
                         <h6 class="font-weight-normal">India</h6>
                       </div>
                     </div>
@@ -331,23 +228,90 @@
                 </div>
               </div>
             </div>
+
+            <?php
+
+              $conn = mysqli_connect("localhost", "root", "", "bio");
+              // Check connection
+              if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+              }
+              $sql = "SELECT * FROM users";
+              $result = $conn->query($sql);
+              $user = mysqli_num_rows($result);
+              $sql = "SELECT * FROM bill";
+              $result = $conn->query($sql);
+              $bill = mysqli_num_rows($result);
+
+              $date = date('d-m-y');
+              $today = 0;
+              $sql = "SELECT * FROM bill where date='$date'";
+              $result = $conn->query($sql);
+              $btotal = mysqli_num_rows($result);
+              if ($result->num_rows > 0) {
+              // output data of each row
+                while($row = $result->fetch_assoc()) {
+                  $today = $today+1;
+                }
+              }
+              $bdiv = ($today/$bill);
+              $bper = number_format( $bdiv * 100, 2 );
+
+              $i1 = 0;
+              $i2 = 0;
+              $i3 = 0;
+              $i4 = 0;
+              $sql = "SELECT * FROM bill";
+              $result = $conn->query($sql);
+              $btotal = mysqli_num_rows($result);
+              if ($result->num_rows > 0) {
+              // output data of each row
+                while($row = $result->fetch_assoc()) {
+                  $i1 = $i1+$row['i1'];
+                  $i2 = $i2+$row['i2'];
+                  $i3 = $i3+$row['i3'];
+                  $i4 = $i4+$row['i4'];
+                }
+              }
+              $max = max($i1,$i2,$i3,$i4);
+              if($i1 == $max){
+                $high = 'Product 1';
+              }
+              if($i2 == $max){
+                $high = 'Product 2';
+              }
+              if($i3 == $max){
+                $high = 'Product 3';
+              }
+              if($i4 == $max){
+                $high = 'Product 4';
+              }
+              $total = $i1+$i2+$i3+$i4;
+              $pdiv = $max/$total;
+              $pper = number_format( $pdiv * 100, 2 );
+            ?>
+
             <div class="col-md-6 grid-margin transparent">
               <div class="row">
                 <div class="col-md-6 mb-4 stretch-card transparent">
                   <div class="card card-tale">
                     <div class="card-body">
-                      <p class="mb-4">Today’s Bookings</p>
-                      <p class="fs-30 mb-2">4006</p>
-                      <p>10.00% (30 days)</p>
+                      <p class="mb-4">Today’s Bills</p>
+                      <?php
+                        echo '<p class="fs-30 mb-2">'.$today.'</p>';
+                        echo '<p>'.$bper.'% (of total bills)</p>';
+                      ?>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6 mb-4 stretch-card transparent">
                   <div class="card card-dark-blue">
                     <div class="card-body">
-                      <p class="mb-4">Total Bookings</p>
-                      <p class="fs-30 mb-2">61344</p>
-                      <p>22.00% (30 days)</p>
+                      <p class="mb-4">Most selling product</p>
+                      <?php
+                        echo '<p class="fs-30 mb-2">'.$high.'</p>';
+                        echo '<p>'.$pper.'% (of total products)</p>';
+                      ?>
                     </div>
                   </div>
                 </div>
@@ -356,49 +320,71 @@
                 <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
                   <div class="card card-light-blue">
                     <div class="card-body">
-                      <p class="mb-4">Number of Meetings</p>
-                      <p class="fs-30 mb-2">34040</p>
-                      <p>2.00% (30 days)</p>
+                      <p class="mb-4">Number of Customers</p>
+                      <?php
+                        echo '<p class="fs-30 mb-2">'.$user.'</p>';
+                      ?>
+                      <p>In TamilNadu</p>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6 stretch-card transparent">
                   <div class="card card-light-danger">
                     <div class="card-body">
-                      <p class="mb-4">Number of Clients</p>
-                      <p class="fs-30 mb-2">47033</p>
-                      <p>0.22% (30 days)</p>
+                      <p class="mb-4">Number of Bills</p>
+                      <?php
+                        echo '<p class="fs-30 mb-2">'.$bill.'</p>';
+                      ?>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <?php
+            $i1 = 0;
+            $i2 = 0;
+            $i3 = 0;
+            $i4 = 0;
+            $sql = "SELECT * FROM bill";
+            $result = $conn->query($sql);
+            $btotal = mysqli_num_rows($result);
+            if ($result->num_rows > 0) {
+            // output data of each row
+              while($row = $result->fetch_assoc()) {
+                $i1 = $i1+($row['i1']*$row['ip1']);
+                $i2 = $i2+($row['i2']*$row['ip2']);
+                $i3 = $i3+($row['i3']*$row['ip3']);
+                $i4 = $i4+($row['i4']*$row['ip4']);
+              }
+            }
+            $torder = $i1+$i2+$i3+$i4;
+            if($torder>1000){
+              $torder = number_format( $torder/1000, 1);
+              $torder = $torder.'k';
+            }
+          ?>
           <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
+            <div class="col-md-4 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <p class="card-title">Order Details</p>
-                  <p class="font-weight-500">The total number of sessions within the date range. It is the period time a user is actively engaged with your website, page or app, etc</p>
+                  <p class="card-title">Overall Order Details</p>
+                  <p class="font-weight-500">An overview of the orders processed in the bills</p>
                   <div class="d-flex flex-wrap mb-5">
                     <div class="mr-5 mt-3">
-                      <p class="text-muted">Order value</p>
-                      <h3 class="text-primary fs-30 font-weight-medium">12.3k</h3>
+                      <p class="text-muted">Total order value</p>
+                      <?php
+                        echo '<h3 class="text-primary fs-30 font-weight-medium">'.$torder.'</h3>';
+                      ?>
                     </div>
                     <div class="mr-5 mt-3">
-                      <p class="text-muted">Orders</p>
-                      <h3 class="text-primary fs-30 font-weight-medium">14k</h3>
+                      <p class="text-muted">Bills</p>
+                      <?php
+                        echo '<h3 class="text-primary fs-30 font-weight-medium">'.$bill.'</h3>';
+                      ?>
                     </div>
-                    <div class="mr-5 mt-3">
-                      <p class="text-muted">Users</p>
-                      <h3 class="text-primary fs-30 font-weight-medium">71.56%</h3>
-                    </div>
-                    <div class="mt-3">
-                      <p class="text-muted">Downloads</p>
-                      <h3 class="text-primary fs-30 font-weight-medium">34040</h3>
-                    </div> 
                   </div>
-                  <canvas id="order-chart"></canvas>
+                  
                 </div>
               </div>
             </div>
@@ -496,6 +482,11 @@
                               </div>
                               <div class="col-md-6 mt-3">
                                 <canvas id="north-america-chart"></canvas>
+                                <?php
+                                $data = array();
+                                $data['price'] = array(10,20,30);
+                                echo json_encode($data);
+                                  ?>
                                 <div id="north-america-legend"></div>
                               </div>
                             </div>
@@ -841,112 +832,14 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-4 stretch-card grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <p class="card-title">Notifications</p>
-                  <ul class="icon-data-list">
-                    <li>
-                      <div class="d-flex">
-                        <img src="images/faces/face1.jpg" alt="user">
-                        <div>
-                          <p class="text-info mb-1">Isabella Becker</p>
-                          <p class="mb-0">Sales dashboard have been created</p>
-                          <small>9:30 am</small>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="d-flex">
-                        <img src="images/faces/face2.jpg" alt="user">
-                        <div>
-                          <p class="text-info mb-1">Adam Warren</p>
-                          <p class="mb-0">You have done a great job #TW111</p>
-                          <small>10:30 am</small>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="d-flex">
-                      <img src="images/faces/face3.jpg" alt="user">
-                     <div>
-                      <p class="text-info mb-1">Leonard Thornton</p>
-                      <p class="mb-0">Sales dashboard have been created</p>
-                      <small>11:30 am</small>
-                     </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="d-flex">
-                        <img src="images/faces/face4.jpg" alt="user">
-                        <div>
-                          <p class="text-info mb-1">George Morrison</p>
-                          <p class="mb-0">Sales dashboard have been created</p>
-                          <small>8:50 am</small>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="d-flex">
-                        <img src="images/faces/face5.jpg" alt="user">
-                        <div>
-                        <p class="text-info mb-1">Ryan Cortez</p>
-                        <p class="mb-0">Herbs are fun and easy to grow.</p>
-                        <small>9:00 am</small>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <p class="card-title">Advanced Table</p>
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="table-responsive">
-                        <table id="example" class="display expandable-table" style="width:100%">
-                          <thead>
-                            <tr>
-                              <th>Quote#</th>
-                              <th>Product</th>
-                              <th>Business type</th>
-                              <th>Policy holder</th>
-                              <th>Premium</th>
-                              <th>Status</th>
-                              <th>Updated at</th>
-                              <th></th>
-                            </tr>
-                          </thead>
-                      </table>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
-          </div>
-        </footer>
         <!-- partial -->
       </div>
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
   </div>
+  
   <!-- container-scroller -->
-
   <!-- plugins:js -->
   <script src="../vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->

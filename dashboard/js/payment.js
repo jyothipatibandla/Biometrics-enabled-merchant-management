@@ -10,6 +10,7 @@ $(document).ready(function() {
       updateQuantity(this);
     });
  
+    
     $('.remove-item button').click(function() {
       removeItem(this);
     });

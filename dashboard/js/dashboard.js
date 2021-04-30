@@ -331,7 +331,7 @@
       var areaData = {
         labels: ["Jan", "Feb", "Mar"],
         datasets: [{
-            data: [100, 50, 50],
+            data: [5, 8, 10],
             backgroundColor: [
                "#4B49AC","#FFC100", "#248AFD",
             ],
@@ -383,7 +383,7 @@
           ctx.textBaseline = "middle";
           ctx.fillStyle = "#13381B";
       
-          var text = "90",
+          var text = "10",
               textX = Math.round((width - ctx.measureText(text).width) / 2),
               textY = height / 2;
       
