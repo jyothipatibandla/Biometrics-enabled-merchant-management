@@ -98,5 +98,3 @@ def classify_face(im):
 
 
 classify_face("test.jpg")
-
-

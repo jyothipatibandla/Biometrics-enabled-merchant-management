@@ -45,6 +45,7 @@ else{
         $id = $row['id'];
         if($pass == $dbpass){
             $_SESSION['id'] = $id;
+            $_SESSION['email'] = $user;
             header('Location: ../html/finlogin.html');
         }
         else{

@@ -2,6 +2,16 @@
 <html lang="en">
 
 <head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+  <script>
+    function printPageArea(areaID){
+      var printContents = document.getElementById(areaID).innerHTML;
+      var originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContents;
+      window.print();
+      document.body.innerHTML = originalContents;
+    }
+  </script>
   <?php
     session_start();
   ?>
@@ -36,7 +46,7 @@
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-nav" href="index.html"><img src="../../images/logo.png" /></a>
+        <a class="navbar-nav" href="../index.php"><img src="../../images/logo.png" /></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <ul class="navbar-nav navbar-nav-right">
@@ -60,7 +70,7 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="../index.html">
+            <a class="nav-link" href="../index.php">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
@@ -117,6 +127,18 @@
                 </ul>
               </div>
             </li>
+            <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-bio" aria-expanded="false" aria-controls="ui-bio">
+              <i class="icon-check menu-icon"></i>
+              <span class="menu-title">Biometrics</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-bio">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="../bio/sign.php">Signature</a></li>
+              </ul>
+            </div>
+          </li>
         </ul>
     </nav>
       <!-- partial -->
@@ -201,6 +223,8 @@
       <div class="content-wrapper">
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
         <div class="page-content container">
+        <div id="printableArea">
+
             <div class="page-header text-blue-d2">
                 <h1 class="page-title text-secondary-d1">
                     Invoice no :
@@ -217,13 +241,9 @@
                             <i class="mr-1 fa fa-check text-success-m1 text-120 w-2"></i>
                             Verify
                         </a>
-                        <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="Print">
+                        <a class="btn bg-white btn-light mx-1px text-95" href="javascript:void(0);" onclick="printPageArea('printableArea')" data-title="Print">
                             <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
                             Print
-                        </a>
-                        <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="PDF">
-                            <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
-                            Export
                         </a>
                     </div>
                 </div>
@@ -496,6 +516,7 @@
                     </div>
                 </div>
             </div>
+      </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- partial -->
