@@ -41,7 +41,7 @@ else{
         $pass = md5($pass);
         if($pass == $dbpass){
             $_SESSION['id'] = $id;
-            header('Location: ../../dashboard/user/cindex.html');
+            header('Location: ../html/finlogin.html');
         }
         else{
             $m = "Incorrect Password";

@@ -28,10 +28,20 @@ $error = $row['error'];
 
 if($verify == 'true'){
     #resetdb();
-    $m = "Fingerprint authenticated";
-    $l = "../../dashboard/merchant/index.php";
-    $t = "success";
-    pop($l,$m,$t);
+    if(strlen($id)==4){
+        $_SESSION['id'] = $id;
+        $m = "Fingerprint authenticated";
+        $l = "../../dashboard/merchant/index.php";
+        $t = "success";
+        pop($l,$m,$t);
+    }
+    else{
+        $_SESSION['id'] = $id;
+        $m = "Fingerprint authenticated";
+        $l = "../../dashboard/user/cindex.php";
+        $t = "success";
+        pop($l,$m,$t);
+    }
 }
 elseif($verify == 'false'){
     if($error == 'Invalid ID'){

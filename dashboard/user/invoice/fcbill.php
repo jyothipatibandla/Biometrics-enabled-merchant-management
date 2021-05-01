@@ -47,7 +47,7 @@
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-nav" href="../cindex.html"><img src="../../images/logo.png" /></a>
+        <a class="navbar-nav" href="../cindex.php"><img src="../../images/logo.png" /></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <ul class="navbar-nav navbar-nav-right">
@@ -72,7 +72,7 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link" href="../cindex.html">
+            <a class="nav-link" href="../cindex.php">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>

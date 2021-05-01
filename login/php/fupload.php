@@ -47,10 +47,18 @@
 
         if ($didUpload) {
             $_SESSION['fname'] = $fileName;
-            $m = "Fingerprint registered";
-            $l = "../html/index.html";
-            $t = "success";
-            pop($l,$m,$t);
+            if(strlen($id)==4){
+              $m = "Fingerprint registered";
+              $l = "../html/index.html";
+              $t = "success";
+              pop($l,$m,$t);
+            }
+            else{
+              $m = "Fingerprint registered";
+              $l = "../html/cindex.html";
+              $t = "success";
+              pop($l,$m,$t);
+            }
         } else {
             $m = "Error occured. Contact admin";
             $l = "fregister.html";

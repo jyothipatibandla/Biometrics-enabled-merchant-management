@@ -76,7 +76,7 @@ else{
             $stmt->bind_param("sss", $id, $pass1 , $pass2);
             $stmt->execute();
             $m = "User added";
-            $l = "../html/cindex.html";
+            $l = "../html/fregister.html";
             $t = "success";
             pop($l,$m,$t);
         }

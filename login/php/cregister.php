@@ -44,12 +44,13 @@ else{
      if ($unum == 1){
          if($rnum == 0){
             if ($pass1==$pass2) {
+                $_SESSION['id'] = $id;
                 $pass1=$pass2=md5($pass1);
                 $stmt = $conn->prepare($INSERT);
                 $stmt->bind_param("sss", $id, $pass1, $pass2);
                 $stmt->execute();
                 $m = "Account created";
-                $l = "../html/cindex.html";
+                $l = "../html/fregister.html";
                 $t = "success";
                 pop($l,$m,$t);
             }
@@ -61,6 +62,7 @@ else{
             }
         }
     }
+
     if ($rnum!=0) {
         $m = "Account exists already";
         $l = "../html/cindex.html";

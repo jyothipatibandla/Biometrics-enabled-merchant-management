@@ -4,6 +4,8 @@
 <head>
 <script src="../js/jquery-3.6.0.min.js"></script>
 <?php
+session_start();
+$id = $_SESSION['id'];
 $conn = mysqli_connect("localhost", "root", "", "bio");
 // Check connection
 if ($conn->connect_error) {
@@ -13,7 +15,7 @@ $i1 = 0;
 $i2 = 0;
 $i3 = 0;
 $i4 = 0;
-$sql = "SELECT * FROM bill";
+$sql = "SELECT * FROM bill where id='$id'";
 $result = $conn->query($sql);
 $btotal = mysqli_num_rows($result);
 if ($result->num_rows > 0) {
@@ -113,9 +115,6 @@ if ($result->num_rows > 0) {
   });
 })(jQuery);
 </script>
-  <?php
-    session_start();
-  ?>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -124,12 +123,10 @@ if ($result->num_rows > 0) {
   <link rel="stylesheet" href="../vendors/feather/feather.css">
   <link rel="stylesheet" href="../vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
-  <link rel="stylesheet" href="../path-to/node_modules/mdi/css/materialdesignicons.min.css"/>
   <!-- endinject -->
   <!-- Plugin css for this page -->
-  <link rel="stylesheet" href="../vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-  <link rel="stylesheet" href="../vendors/ti-icons/css/themify-icons.css">
-  <link rel="stylesheet" type="../text/css" href="../js/select.dataTables.min.css">
+  <link rel="stylesheet" href="../vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="../css/vertical-layout-light/style.css">
@@ -138,7 +135,7 @@ if ($result->num_rows > 0) {
   <style>
     .navbar-nav {
         position: relative;
-        width: 110px;
+        width: 140px;
       }
   </style>
 </head>
@@ -148,8 +145,8 @@ if ($result->num_rows > 0) {
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-nav" href="index.html"><img src="../images/logo.png" /></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../images/logo-mini.png" alt="logo"/></a>
+        <a class="navbar-nav" href="cindex.php"><img src="../images/logo.png" /></a>
+        <a class="navbar-brand brand-logo-mini" href="cindex.php"><img src="images/logo-mini.png" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -187,86 +184,42 @@ if ($result->num_rows > 0) {
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="index.php">
+            <a class="nav-link" href="cindex.php">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
-              <span class="menu-title">Users</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="users/userlist.php">User list</a></li>
-                <li class="nav-item"> <a class="nav-link" href="users/adduser.html">Add user</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#bill" aria-expanded="false" aria-controls="bill">
-              <i class="icon-contract menu-icon"></i>
-              <span class="menu-title">Bills</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="bill">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="bills/bill.php">New bill</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="bills/blist.php">Bill list</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-              <i class="icon-bar-graph menu-icon"></i>
-              <span class="menu-title">Price</span>
+              <i class="icon-contract menu-icon"></i>
+              <span class="menu-title">Search bill</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="price/price.php">Update Price</a></li>
-                <li class="nav-item"> <a class="nav-link" href="price/phistory.php">History</a></li>
+                <li class="nav-item"> <a class="nav-link" href="bill/cnlist.php">By number</a></li>
+                <li class="nav-item"> <a class="nav-link" href="bill/bcstatus.php">By status</a></li>
+                <li class="nav-item"> <a class="nav-link" href="bill/callbill.php">All bills</a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link" href="status/scover.php">
               <i class="icon-layout menu-icon"></i>
               <span class="menu-title">Status</span>
-              <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="status/sover.php">Overview</a></li>
-                <li class="nav-item"> <a class="nav-link" href="status/status.php">Update</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-bio" aria-expanded="false" aria-controls="ui-bio">
-              <i class="icon-check menu-icon"></i>
-              <span class="menu-title">Biometrics</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-bio">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="bio/sign.php">Signature</a></li>
-              </ul>
-            </div>
           </li>
         </ul>
       </nav>
       <!-- partial -->
       <?php
-        $email = $_SESSION['email'];
+        $id = $_SESSION['id'];
         $conn = mysqli_connect("localhost", "root", "", "bio");
         // Check connection
         if ($conn->connect_error) {
           die("Connection failed: " . $conn->connect_error);
         }
-        $sql = "SELECT * FROM register WHERE email='$email'";
+        $sql = "SELECT * FROM users WHERE id='$id'";
         $result = $conn->query($sql);
         if ($result && $result->num_rows > 0) {
         // output data of each row
@@ -281,7 +234,7 @@ if ($result->num_rows > 0) {
             <div class="col-md-12 grid-margin">
               <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                  <?php
+                <?php
                     echo '<h3 class="font-weight-bold">Welcome '.$name.'</h3>';
                   ?>
                 </div>
@@ -293,7 +246,7 @@ if ($result->num_rows > 0) {
                       $d1 = date(DATE_RFC822);
                       $d = substr($d1,5,9); 
                       echo '<i class="mdi mdi-calendar"></i>'.$d;
-                    ?>
+                    ?>                    
                     </button>
                   </div>
                  </div>
@@ -329,90 +282,91 @@ if ($result->num_rows > 0) {
                 </div>
               </div>
             </div>
-
             <?php
-
               $conn = mysqli_connect("localhost", "root", "", "bio");
               // Check connection
               if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
               }
-              $sql = "SELECT * FROM users";
-              $result = $conn->query($sql);
-              $user = mysqli_num_rows($result);
-              $sql = "SELECT * FROM bill";
-              $result = $conn->query($sql);
-              $bill = mysqli_num_rows($result);
-
               $date = date('d-m-y');
               $today = 0;
-              $sql = "SELECT * FROM bill where date='$date'";
+              $sql = "SELECT * FROM bill where date='$date' AND id='$id'";
               $result = $conn->query($sql);
-              $btotal = mysqli_num_rows($result);
               if ($result->num_rows > 0) {
               // output data of each row
                 while($row = $result->fetch_assoc()) {
                   $today = $today+1;
                 }
               }
-              $bdiv = ($today/$bill);
-              $bper = number_format( $bdiv * 100, 2 );
-
-              $i1 = 0;
-              $i2 = 0;
-              $i3 = 0;
-              $i4 = 0;
-              $sql = "SELECT * FROM bill";
+              $bill = 0;
+              $sql = "SELECT * FROM bill where id='$id'";
               $result = $conn->query($sql);
-              $btotal = mysqli_num_rows($result);
               if ($result->num_rows > 0) {
               // output data of each row
                 while($row = $result->fetch_assoc()) {
-                  $i1 = $i1+$row['i1'];
-                  $i2 = $i2+$row['i2'];
-                  $i3 = $i3+$row['i3'];
-                  $i4 = $i4+$row['i4'];
+                  $bill = $bill+1;
                 }
               }
-              $max = max($i1,$i2,$i3,$i4);
-              if($i1 == $max){
-                $high = 'Product 1';
+              $unr = 0;
+              $sql = "SELECT * FROM bill where id='$id'";
+              $result = $conn->query($sql);
+              if ($result->num_rows > 0) {
+              // output data of each row
+                while($row = $result->fetch_assoc()) {
+                  $bno = $row['bno'];
+                  #echo $bno;
+                  $sql1 = "SELECT * FROM status where bno='$bno' AND bill='dl' AND user='ur'";
+                  $result1 = $conn->query($sql1);
+                  if ($result1->num_rows > 0) {
+                    while($row = $result1->fetch_assoc()) {
+                      #echo "------";
+                      #echo $row['bno'];
+                      $unr = $unr+1;
+                    }
+                  }
+                }
               }
-              if($i2 == $max){
-                $high = 'Product 2';
+              $nr = 0;
+              $sql = "SELECT * FROM bill where id='$id'";
+              #echo $id;
+              
+              $result = $conn->query($sql);
+              if ($result->num_rows > 0) {
+              // output data of each row
+                while($row = $result->fetch_assoc()) {
+                  $bno = $row['bno'];
+                  #echo $bno;
+                  $sql1 = "SELECT * FROM status where bno='$bno' AND bill='dl' AND user='r'";
+                  $result1 = $conn->query($sql1);
+                  if ($result1->num_rows > 0) {
+                    while($row = $result1->fetch_assoc()) {
+                      $nr = $nr+1;
+                    }
+                  }
+                }
               }
-              if($i3 == $max){
-                $high = 'Product 3';
-              }
-              if($i4 == $max){
-                $high = 'Product 4';
-              }
-              $total = $i1+$i2+$i3+$i4;
-              $pdiv = $max/$total;
-              $pper = number_format( $pdiv * 100, 2 );
-            ?>
-
+              ?>
             <div class="col-md-6 grid-margin transparent">
               <div class="row">
                 <div class="col-md-6 mb-4 stretch-card transparent">
                   <div class="card card-tale">
                     <div class="card-body">
-                      <p class="mb-4">Today’s Bills</p>
+                      <p class="mb-4">Around</p>
                       <?php
                         echo '<p class="fs-30 mb-2">'.$today.'</p>';
-                        echo '<p>'.$bper.'% (of total bills)</p>';
                       ?>
+                      <p>Bills for today</p>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6 mb-4 stretch-card transparent">
                   <div class="card card-dark-blue">
                     <div class="card-body">
-                      <p class="mb-4">Most selling product</p>
+                      <p class="mb-4">And totally</p>
                       <?php
-                        echo '<p class="fs-30 mb-2">'.$high.'</p>';
-                        echo '<p>'.$pper.'% (of total products)</p>';
+                        echo '<p class="fs-30 mb-2">'.$bill.'</p>';
                       ?>
+                      <p>Bills so far</p>
                     </div>
                   </div>
                 </div>
@@ -421,22 +375,22 @@ if ($result->num_rows > 0) {
                 <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
                   <div class="card card-light-blue">
                     <div class="card-body">
-                      <p class="mb-4">Number of Customers</p>
+                      <p class="mb-4">You have over</p>
                       <?php
-                        echo '<p class="fs-30 mb-2">'.$user.'</p>';
+                        echo '<p class="fs-30 mb-2">'.$unr.'</p>';
                       ?>
-                      <p>In TamilNadu</p>
+                      <p>Unreviewed bills</p>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6 stretch-card transparent">
                   <div class="card card-light-danger">
                     <div class="card-body">
-                      <p class="mb-4">Overall</p>
+                      <p class="mb-4">Also, around</p>
                       <?php
-                        echo '<p class="fs-30 mb-2">'.$bill.'</p>';
+                        echo '<p class="fs-30 mb-2">'.$nr.'</p>';
                       ?>
-                      <p>Bills generated so far</p>
+                      <p>Bills have been reviewed</p>
                     </div>
                   </div>
                 </div>
@@ -448,7 +402,7 @@ if ($result->num_rows > 0) {
             $i2 = 0;
             $i3 = 0;
             $i4 = 0;
-            $sql = "SELECT * FROM bill";
+            $sql = "SELECT * FROM bill where id='$id'";
             $result = $conn->query($sql);
             $btotal = mysqli_num_rows($result);
             if ($result->num_rows > 0) {
@@ -584,8 +538,8 @@ if ($result->num_rows > 0) {
     </div>
     <!-- page-body-wrapper ends -->
   </div>
-  
   <!-- container-scroller -->
+
   <!-- plugins:js -->
   <script src="../vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
@@ -604,6 +558,7 @@ if ($result->num_rows > 0) {
   <script src="../js/todolist.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
+
   <script src="../js/Chart.roundedBarCharts.js"></script>
   <!-- End custom js for this page-->
 </body>
