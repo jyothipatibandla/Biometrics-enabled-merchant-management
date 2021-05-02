@@ -161,9 +161,11 @@ if ($result->num_rows > 0) {
               <i class="icon-ellipsis"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
+            <a class="dropdown-item" href="../../login/html/cindex.html">
+              <div class="logoutLblPos">
                 <i class="ti-power-off text-primary"></i>
                 Logout
+              </div>
               </a>
             </div>
           </li>

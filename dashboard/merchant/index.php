@@ -113,6 +113,13 @@ if ($result->num_rows > 0) {
   });
 })(jQuery);
 </script>
+<script type="text/javascript">
+    window.history.forward();
+    function noBack()
+    {
+        window.history.forward();
+    }
+</script>
   <?php
     session_start();
   ?>
@@ -138,12 +145,12 @@ if ($result->num_rows > 0) {
   <style>
     .navbar-nav {
         position: relative;
-        width: 110px;
+        width: 140px;
       }
   </style>
 </head>
 
-<body>
+<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -164,9 +171,11 @@ if ($result->num_rows > 0) {
               <i class="icon-ellipsis"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
+              <a class="dropdown-item" href="../../login/html/index.html">
+              <div class="logoutLblPos">
                 <i class="ti-power-off text-primary"></i>
                 Logout
+              </div>
               </a>
             </div>
           </li>
