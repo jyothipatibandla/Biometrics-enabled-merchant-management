@@ -353,11 +353,12 @@ if ($result->num_rows > 0) {
               $result = $conn->query($sql);
               $bill = mysqli_num_rows($result);
 
+              date_default_timezone_set('Asia/Kolkata');
               $date = date('d-m-y');
               $today = 0;
               $sql = "SELECT * FROM bill where date='$date'";
               $result = $conn->query($sql);
-              $btotal = mysqli_num_rows($result);
+              $today1 = mysqli_num_rows($result);
               if ($result->num_rows > 0) {
               // output data of each row
                 while($row = $result->fetch_assoc()) {
@@ -408,7 +409,7 @@ if ($result->num_rows > 0) {
                     <div class="card-body">
                       <p class="mb-4">Today’s Bills</p>
                       <?php
-                        echo '<p class="fs-30 mb-2">'.$today.'</p>';
+                        echo '<p class="fs-30 mb-2">'.$today1.'</p>';
                         echo '<p>'.$bper.'% (of total bills)</p>';
                       ?>
                     </div>

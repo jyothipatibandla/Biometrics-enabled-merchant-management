@@ -290,6 +290,7 @@ if ($result->num_rows > 0) {
               if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
               }
+              date_default_timezone_set('Asia/Kolkata');
               $date = date('d-m-y');
               $today = 0;
               $sql = "SELECT * FROM bill where date='$date' AND id='$id'";
