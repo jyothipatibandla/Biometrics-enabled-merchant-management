@@ -1,5 +1,6 @@
-<img src="https://github.com/thangarajarvind/Biometrics-enabled-merchant-management/blob/main/home/assets/favicon.png" width="200" />
-
+<p align="center">
+  <img src="https://github.com/thangarajarvind/Biometrics-enabled-merchant-management/blob/main/home/assets/favicon.png" width="200" />
+</p>[>
 
 # Biometrics enabled Merchant Management Webapp
 
